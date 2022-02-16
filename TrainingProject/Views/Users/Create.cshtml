@@ -1,0 +1,175 @@
+﻿@model TrainingProjectDataLayer.DataLayer.Entities.DAL.User
+@{
+    Layout = null;
+    string EmailValidationMessage = "Only Green Colored Email Ids are valid";
+}
+<style type="text/css">
+
+    .tag:after {
+        content: " ";
+        height: 30px;
+        width: 0;
+        position: absolute;
+        left: 100%;
+        top: 0;
+        margin: 0;
+        pointer-events: none;
+        border-top: 14px solid transparent;
+        border-bottom: 14px solid transparent;
+        border-left: 11px solid transparent;
+    }
+</style>
+
+@using (Html.BeginForm("Create", "Users", FormMethod.Post, new { id = "frmCreateUser" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.PasswordLastModifiedOn)
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.DeptId, "Deptartment", htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                @Html.DropDownListFor(model => model.DeptId, (IEnumerable<SelectListItem>)ViewBag.Departments,Constants.Option, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DeptId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control has-feedback-left" } })
+                <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MiddleName, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @class = "form-control has-feedback-left" } })
+                <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control has-feedback-left" } })
+                <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Init, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                @Html.EditorFor(model => model.Init, new { htmlAttributes = new { @class = "form-control has-feedback-left" } })
+                <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                @Html.ValidationMessageFor(model => model.Init, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control has-feedback-left" } })
+                <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @*<div class="form-group" id="divSAPSystemName">
+            @Html.LabelFor(model => model.SAPSystemName, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                @Html.EditorFor(model => model.SAPSystemName, new { htmlAttributes = new { @class = "form-control has-feedback-left" } })
+                <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                @Html.ValidationMessageFor(model => model.SAPSystemName, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control has-feedback-left" } })
+                <span class="fa fa-eye form-control-feedback left" aria-hidden="true"></span>
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+            <i class="fa fa-info-circle fa-lg blue" data-toggle="tooltip" title="" data-placement="top" data-original-title="@EmailValidationMessage" data-custom-class=""></i>
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control has-feedback-left" } })
+                @Html.ValidationMessageFor(model => model.EmailId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        
+        <div id="ShowVendors" class="form-group" hidden>
+            @Html.LabelFor(model => model.VendorListId, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                @Html.DropDownListFor(model => model.VendorListId, (IEnumerable<SelectListItem>)ViewBag.VendorList, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.VendorListId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group" id="SelectedRoles" hidden>
+            @Html.LabelFor(model => model.RoleID, "User Roles", htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                @Html.DropDownListFor(model => model.SelectedRoles, (IEnumerable<SelectListItem>)ViewBag.Roles, htmlAttributes: new { @class = "form-control", @multiple = "multiple", @size = (((IEnumerable<SelectListItem>)ViewBag.Roles).Count() + 1) })
+                @Html.ValidationMessageFor(model => model.RoleID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+}
+@Scripts.Render("~/bundles/jqueryval")
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui-1.9.0.min.js"></script>
+<link href="~/Content/BootstrapDuallistbox/bootstrap-duallistbox.min.css" rel="stylesheet" />
+<script src="~/Scripts/BootstrapDuallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+<script src="~/Scripts/jquery.tagsinput/jquery.tagsinput.min.js"></script>
+<script type="text/javascript">
+    var Duallistdemo = $("#SelectedRoles").bootstrapDualListbox({
+        filterTextClear: 'show all',
+        filterPlaceHolder: 'Filter',
+        moveSelectedLabel: 'Move selected',
+        moveAllLabel: 'Move all',
+        removeSelectedLabel: 'Remove selected',
+        removeAllLabel: 'Remove all',
+    });
+
+    $("#EmailId").tagsInput(
+  {
+      width: 'auto',
+      height: '65px',
+      defaultText: 'Add Email',
+      pattern: EmailValidation
+  });
+
+    var initial = $("").val();
+    $("#FirstName,#LastName,#MiddleName").focusout(function () {
+        {
+            var firstname = $("#FirstName").val();
+            var middlename = $("#MiddleName").val();
+            var lastname = $("#LastName").val();
+            $("#Init").val(firstname.substr(0, 1).toUpperCase() + middlename.substr(0, 1).toUpperCase() + lastname.substr(0, 1).toUpperCase());
+        }
+    });
+    $(document).ready(function () {
+    $("#SelectedRoles").show('slowly'); //page load show dualList Box
+    $("#DeptId").change(function () { // Change Department
+        {
+            var _deptName = $("#DeptId :selected").text();
+            if (_deptName == "SUPPLIER") { //if Department name is vendor
+               $("#ShowVendors").show('slowly');  //Show Vendor List
+               $("#divSAPSystemName").hide('slowly');  //Show Vendor List
+                $("#SelectedRoles option:contains(Vendor)").attr('selected', 'selected'); //Select Vendor as a Role in BackGround
+                $("#SelectedRoles").hide('slowly'); //Hide Dual List Box If Vendor Selected
+            }
+           else {
+               $("#divSAPSystemName").show('slowly');  //Show Vendor List
+                $("#ShowVendors").hide(); //Any Other then Vendor Then Hide Vendor List
+                $("#SelectedRoles").show('slowly'); //Show Dual List Box
+            }
+
+        }
+    })
+    })
+
+</script>

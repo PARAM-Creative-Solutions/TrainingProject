@@ -1,0 +1,65 @@
+﻿
+/*How to use Example*/
+   /*<button type="button" class="optionButton" data-toggle="tooltip" title="" data-placement="bottom" data-original-title="Click To Download"><i class="fa fa-copy"></i></button>*/
+
+
+.optionButton {
+  display: inline-block;
+  /*padding: 6px 12px;*/
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: dimgray;
+  /*dimgray #337ab7*/
+  border-color: #adadad;
+  background-color: white;
+}
+.optionButton:focus,
+.optionButton:active:focus,
+.optionButton.active:focus,
+.optionButton.focus,
+.optionButton:active.focus,
+.optionButton.active.focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.optionButton:hover,
+.optionButton:focus,
+.optionButton.focus {
+    /*color: #1ABB9C !important;*/
+     color: #bb1a24 !important;
+    border: 1px solid #26b99a
+    /*border: 1px solid #1a32bb*/
+}
+.optionButton:active,
+.optionButton.active {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+          box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
+.optionButton.disabled,
+.optionButton[disabled],
+fieldset[disabled] .btn {
+  pointer-events: none;
+  cursor: not-allowed;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  opacity: .65;
+}

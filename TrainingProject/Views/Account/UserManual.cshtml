@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "UserManual";
+    Layout = null;
+}
+<script src="../Scripts/Template/jquery.min.js"></script>
+@Styles.Render("~/Content/cssPNotify")
+@Scripts.Render("~/bundles/jqueryPNotify")
+<script src="~/Scripts/AppScripts/PNotifyMessages.js"></script>
+@*<h2>UserManual</h2>*@
+<Script>
+    $(document).ready(function ()
+    {
+        ShowMessage();
+
+        function ShowMessage() {
+            var Notify = MessageBoxOK_Cancel("File Not Found !");
+            Notify.get().on('pnotify.confirm', function () {
+                window.close();
+            });
+        }
+
+    });
+</Script>

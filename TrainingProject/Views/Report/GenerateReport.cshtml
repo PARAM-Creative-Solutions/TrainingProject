@@ -1,0 +1,238 @@
+﻿@model TrainingProject.ViewModels.Report.ReportsViewModel
+
+@{
+    ViewBag.Title = "GenerateReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*<link href="~/Content/Datepicker/bootstrap-datepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/Datepicker/bootstrap-datepicker.js"></script>*@
+<p><br /><br /><br /></p>
+<style>
+   .daterangepicker select.yearselect {
+    width:50%  !important;
+}
+   .daterangepicker select.monthselect {
+   
+    width: 50% !important;
+}
+   .daterangepicker .calendar th
+   {
+       min-width:unset !important;
+   }
+   .daterangepicker th.available
+   {
+       display: none;
+   }
+</style>
+@using (Html.BeginForm("GenerateReport", "Report", FormMethod.Post, new { id = "frmGenerateReport", target = "_blank" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        @Html.HiddenFor(model => model.StartDate)
+        @Html.HiddenFor(model => model.EndDate)
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="panel panel-info" id="pSo">
+                <div class="panel-heading">
+                    <span id="SpanExpander" class="pull-left clickable">
+                        <i id="ILabel" class="glyphicon glyphicon-chevron-up" style="font-size:large;"></i>
+                    </span><b class="collapse-link"> Select Report to Generate</b>
+                </div>
+                <div class="panel-body" style="display: block;">
+                    <!-- Start to do list -->
+                    <div class="col-md-5 col-sm-5 col-xs-12">
+                        <ul class="to_do">
+                            @for (int i = 0; i < Model.ReportsTypes.Count(); i++)
+                            {
+                                <li>
+                                    <p>
+                                        @if (i == 0)
+                                        {
+                                            <input type="radio" class="flat status" name="SelectedReport" checked id="SelectedReport" value="@Model.ReportsTypes.ElementAt(i).ReportTypeID"> @Html.DisplayFor(m => m.ReportsTypes.ElementAt(i).ReportName)
+                                        }
+                                        else
+                                        {
+                                            <input type="radio" class="flat status" name="SelectedReport" id="SelectedReport" value="@Model.ReportsTypes.ElementAt(i).ReportTypeID"> @Html.DisplayFor(m => m.ReportsTypes.ElementAt(i).ReportName)
+                                        }
+
+                                    </p>
+                                </li>
+                                @*<a ReportTypeId='@Model.ElementAt(i).ReportTypeID' class="btn btn-xs optionButton btnEdit"><i class="fa fa-line-chart blue" data-toggle="tooltip" title="" data-placement="top" data-original-title="Create Report"></i></a>*@
+                            }
+                        </ul>
+                        <div class="form-group">
+                            <button type="submit" id="report1" target="_blank" class="btn btn-primary ">Generate</button>
+                        </div>
+                    </div>
+                    <!-- End to do list -->
+
+                    <div class="col-md-7 col-sm-7 col-xs-12">
+                        <div class="form-group radio">
+                            <div class="col-md-push-4 col-md-4 col-sm-8 col-xs-12">
+                                <label>
+                                    <input type="radio" class="flat control-label" checked name="iCheck" value="Month"> Month 
+                                </label>
+                                <label>
+                                    <input type="radio" class="flat control-label" name="iCheck" value="Date"> Date 
+                                </label>
+                            </div>
+                            </div>
+
+                            <div class="form-group" id="MonthWise">
+                                @Html.Label("Select Range :", htmlAttributes: new { @class = "control-label  col-md-4 col-sm-4 col-xs-12" })
+
+                                <div class="col-md-8 col-sm-8 col-xs-12">
+                                    <div id="datepicker" class="pull-left" style="margin-top: 5px; background: #fff; cursor: pointer; padding: 5px 10px; width : 235px; border: 1px solid #E6E9ED">
+                                        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                                        <span></span> <b class="caret"></b>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                       
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="col-md-12 col-sm-12 col-xs-12" id="rpt">
+
+            </div>
+        </div>
+
+    </div>
+}
+@*<link href="~/Scripts/AutoComplete/jquery.auto-complete.css" rel="stylesheet" />
+<script src="~/Scripts/AutoComplete/jquery.auto-complete.min.js"></script>
+<link href="~/Content/JqueryEditableSelect/jquery-editable-select.min.css" rel="stylesheet" />
+<script src="~/Scripts/JqueryEditableSelect/jquery-editable-select.min.js"></script>*@
+@*<script src="~/Scripts/Report/Reports.js"></script>*@
+<link href="~/Content/Datepicker/daterangepicker.css" rel="stylesheet" />
+<script src="/Scripts/Datepicker/moment.min.js"></script>
+<script src="~/Scripts/Datepicker/daterangepicker.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+       
+        var date = new Date();
+        var dateFormate = 'DD/MM/YYYY';
+        var strtDate=moment().set('date', 1).subtract(1, 'month').format(dateFormate);
+        var enDate=moment().subtract(1, 'month').endOf('month').format(dateFormate);
+        $('#datepicker span').html(strtDate + ' - ' + enDate);
+        document.getElementById("StartDate").value = strtDate;
+        document.getElementById("EndDate").value = enDate;
+        init_daterangepicker();
+        function init_daterangepicker() {
+            $('#datepicker').daterangepicker({
+
+                opens: 'right',
+
+                startDate: moment().set('date', 1).subtract(1, 'month'),
+                endDate: moment().subtract(1, 'month').endOf('month'),
+                showDropdowns: true,
+                linkedCalendars: false,
+
+                locale: {
+                    fromLabel: "From",
+                    toLabel: "To"
+                }
+            }, function (start, end) {
+                $('#datepicker span').html(start.format(dateFormate) + ' - ' + end.endOf('month').format(dateFormate));
+            })
+         .on('showCalendar.daterangepicker', function (ev, picker) {
+             $('.table-condensed thead tr:nth-child(2), .table-condensed tbody').hide();
+             var start = moment((parseInt($('.left .monthselect').val()) + 1) + '/01/' + $('.left .yearselect').val())
+             var end = moment((parseInt($('.right .monthselect').val()) + 1) + '/01/' + $('.right .yearselect').val())
+             $('#datepicker').data('daterangepicker').setStartDate(start);
+             $('#datepicker').data('daterangepicker').setEndDate(end);
+         }).on('apply.daterangepicker', function (ev, picker) {
+
+
+             document.getElementById("StartDate").value = picker.startDate.format(dateFormate);
+             document.getElementById("EndDate").value = picker.endDate.format(dateFormate);
+         });
+
+            $(".daterangepicker_input").hide('slowly');
+        }
+
+        $(function () {
+            $('input[type=radio]').on('ifChecked', function (e) {
+               
+                var whichOne = $(e.currentTarget).val();
+                if (whichOne == "Month") {
+                    init_daterangepicker();
+                }
+
+                else if (whichOne == "Date") {
+                   
+                    if (typeof ($.fn.daterangepicker) === 'undefined') { return; }
+                    var cb = function (start, end, label) {
+
+                        console.log(start.toISOString(), end.toISOString(), label);
+                        $('#datepicker span').html(start.format(dateFormate) + ' - ' + end.format(dateFormate));
+                    };
+
+                    var optionSet1 = {
+                        startDate: moment().set('date', 1).subtract(1, 'month'),
+                        endDate: moment().subtract(1, 'month').endOf('month'),
+                        minDate: moment().subtract(22, 'years').format(dateFormate),
+                        maxDate: moment().add(2, 'years').format(dateFormate),
+                        showDropdowns: true,
+                        linkedCalendars: false,
+                        autoApply: false,
+                        showWeekNumbers: true,
+                        timePicker: false,
+                        timePickerIncrement: 100,
+                        timePicker12Hour: false,
+
+                        opens: 'left',
+                        buttonClasses: ['btn btn-default'],
+                        applyClass: 'btn-small btn-primary',
+                        cancelClass: 'btn-small',
+                        format: dateFormate,
+                        separator: ' to ',
+                        locale: {
+                            applyLabel: 'Apply',
+                            cancelLabel: 'Clear',
+                            fromLabel: 'From',
+                            toLabel: 'To',
+                            customRangeLabel: 'Custom',
+                            daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                            monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                            firstDay: 1
+                        }
+
+                    };                
+                    $('#datepicker').daterangepicker(optionSet1, cb);
+                    $('#datepicker').on('show.daterangepicker', function () {
+                        console.log("show event fired");
+                        $('.table-condensed thead tr:nth-child(2), .table-condensed tbody').show();
+
+                    });
+                    $('#datepicker').on('hide.daterangepicker', function () {
+                        console.log("hide event fired");
+                    });
+                    $('#datepicker').on('apply.daterangepicker', function (ev, picker) {
+                       
+                        document.getElementById("StartDate").value = picker.startDate.format(dateFormate);
+                        document.getElementById("EndDate").value = picker.endDate.format(dateFormate);
+                    });
+
+                    $(".daterangepicker_input").show('slowly');
+                 
+                }
+                else if (whichOne == "NA")
+                    $('#DateWise,#DateWise').hide('slowly');
+            });
+        });
+
+           
+    });
+        
+        @*--------------Region END -------------------*@
+
+  
+</script>

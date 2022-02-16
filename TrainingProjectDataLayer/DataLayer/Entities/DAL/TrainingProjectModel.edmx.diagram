@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="025ffa8d6cfa4f46a99d2c68622744bf" Name="Diagram1">
+        <EntityTypeShape EntityType="TrainingProjectModel.Color" Width="1.5" PointX="0.75" PointY="6.875" />
+        <EntityTypeShape EntityType="TrainingProjectModel.Department" Width="1.5" PointX="7.5" PointY="6.625" />
+        <EntityTypeShape EntityType="TrainingProjectModel.ExceptionLog" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TrainingProjectModel.Holiday" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TrainingProjectModel.Plant" Width="1.5" PointX="5.25" PointY="4.625" />
+        <EntityTypeShape EntityType="TrainingProjectModel.PlantStatu" Width="1.5" PointX="3" PointY="5.375" />
+        <EntityTypeShape EntityType="TrainingProjectModel.ReportsType" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TrainingProjectModel.Right" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TrainingProjectModel.Role" Width="1.5" PointX="7.5" PointY="3.125" />
+        <EntityTypeShape EntityType="TrainingProjectModel.RoleWiseRight" Width="1.5" PointX="9.75" PointY="3.625" />
+        <EntityTypeShape EntityType="TrainingProjectModel.ServerPathDetail" Width="1.5" PointX="0.75" PointY="13.75" />
+        <EntityTypeShape EntityType="TrainingProjectModel.SystemDetail" Width="1.5" PointX="14" PointY="1" />
+        <EntityTypeShape EntityType="TrainingProjectModel.SystemVersion" Width="1.5" PointX="11.75" PointY="1.25" />
+        <EntityTypeShape EntityType="TrainingProjectModel.UploadedFile" Width="1.5" PointX="7.5" PointY="11.125" />
+        <EntityTypeShape EntityType="TrainingProjectModel.UserLog" Width="1.5" PointX="12" PointY="11.125" />
+        <EntityTypeShape EntityType="TrainingProjectModel.UserRole" Width="1.5" PointX="12" PointY="6.75" />
+        <EntityTypeShape EntityType="TrainingProjectModel.User" Width="1.5" PointX="9.75" PointY="6.625" />
+        <EntityTypeShape EntityType="TrainingProjectModel.UserStatu" Width="1.5" PointX="3" PointY="10.5" />
+        <AssociationConnector Association="TrainingProjectModel.FK_PlantStatus_Colors" />
+        <AssociationConnector Association="TrainingProjectModel.FK_StatusTable_Colors" />
+        <AssociationConnector Association="TrainingProjectModel.FK_Departments_Plants" />
+        <AssociationConnector Association="TrainingProjectModel.FK_Users_Departments" />
+        <AssociationConnector Association="TrainingProjectModel.FK_Plants_PlantStatus" />
+        <AssociationConnector Association="TrainingProjectModel.FK_Roles_Plants" />
+        <AssociationConnector Association="TrainingProjectModel.FK_Users_Plants" />
+        <AssociationConnector Association="TrainingProjectModel.FK_RoleWiseRights_Roles" />
+        <AssociationConnector Association="TrainingProjectModel.FK_UserRoles_Roles_RoleID" />
+        <AssociationConnector Association="TrainingProjectModel.FK_System_Details_Versions" />
+        <AssociationConnector Association="TrainingProjectModel.FK_Users_UploadedFiles" />
+        <AssociationConnector Association="TrainingProjectModel.UserLog_To_User" />
+        <AssociationConnector Association="TrainingProjectModel.FK_User_UserRoles" />
+        <AssociationConnector Association="TrainingProjectModel.FK_Users_UserStatus" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

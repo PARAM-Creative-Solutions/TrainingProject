@@ -1,0 +1,176 @@
+﻿@model TrainingProject.Models.MailManager.MailData
+
+@using TrainingProject.Security
+@using TrainingProjectDataLayer.DataLayer.Entities.DAL;
+@{
+    var tdstyleHeading = "\"" + "font-weight:bold;height: 35px;text-align:center;border:1px solid;padding-right:5px;" + "\"";
+    var tdstyle = "\"" + "height:35px;text-align:center;border:1px solid;" + "\"";
+    var tdstyleImidiateHeading = "\"" + "background:#D3D3D3;height: 35px;text-align:center;border:1px solid;padding-right:5px;" + "\"";
+
+    var Stages = string.Empty;
+
+
+
+    var Content = "Training Project ";
+    var status = "";
+    //DIRECT CALL FORWARD
+    if (Model.objInspectionCallRequest.ForwardToExternalAgency)
+    {
+        Content += "Forwarded By";
+    }
+    else
+    {
+        if (Model.objInspectionCallRequest.InspectionCallStatus != null)
+        {
+
+            SystemEnums.InspectionCallStatus CurrentStatus = (SystemEnums.InspectionCallStatus)Model.objInspectionCallRequest.InspectionCallStatus;
+            status = HelperMethods.GetDescription(CurrentStatus);
+            Content += HelperMethods.GetMailHeading(CurrentStatus);
+        }
+        else
+        {
+
+            Content += "Raised By ";
+        }
+    }
+}
+<p><span>  </span> Dear Sir,</p>
+
+<p> @Content  <b>@Html.DisplayFor(model => model.UserName)</b> :-</p>
+<br />
+
+
+<br />
+
+<table style="border-collapse:collapse;">
+    <tr>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr>
+        <td style=@tdstyleHeading>Project Name</td>
+        @{ string ProjectName = string.Empty;
+            if (Model.objInspectionCallRequest.ProjectName != null)
+            {
+                ProjectName = Model.objInspectionCallRequest.ProjectName;
+
+            }}
+        <td style=@tdstyle>@ProjectName</td>
+        <td style=@tdstyleHeading>Notifiaction Number</td>
+        <td style=@tdstyle>@Model.objInspectionCallRequest.NotificationNumber</td>
+    </tr>
+    <tr>
+        <td style=@tdstyleHeading>Supplier Name</td>
+        <td style=@tdstyle>@Model.objInspectionCallRequest.SupplierName</td>
+        <td style=@tdstyleHeading>Date</td>
+        @{ string date = Model.objInspectionCallRequest.DateOfRaise.Value.ToShortDateString();}
+        <td style=@tdstyle>@date</td>
+    </tr>
+    <tr>
+        <td style=@tdstyleHeading>PO Number</td>
+        <td style=@tdstyle>@Model.objInspectionCallRequest.PurchaseOrderNumber</td>
+        <td style=@tdstyleHeading>Inspection Description</td>
+        @{ string inspectionDescription = string.Empty;
+            if (@Model.objInspectionCallRequest.InspectionDescription != null)
+            { inspectionDescription = Model.objInspectionCallRequest.InspectionDescription; }
+        }
+        <td style=@tdstyle>@inspectionDescription</td>
+    </tr>
+
+    <tr>
+        <td style=@tdstyleHeading>SupplierLocation</td>
+        <td colspan="3" style=@tdstyle>@Model.objInspectionCallRequest.LocationForInspection</td>
+    </tr>
+    <tr>
+        <td style=@tdstyleHeading>Inspection Stage</td>
+        <td colspan="3" style=@tdstyle>
+            <table>
+                <tr><th></th></tr>
+                @foreach (var a in Model.objInspectionCallRequest.SelectedStages)
+                {
+                    <tr><td>@a.Text</td></tr>
+                }
+            </table>
+
+        </td>
+
+    </tr>
+    @if ((!Model.objInspectionCallRequest.ForwardToExternalAgency) && Model.objInspectionCallRequest.IsKSBView && Model.objInspectionCallRequest.InspectionCallStatus.HasValue)
+    {
+        <tr>
+            <td style=@tdstyleHeading>Status</td>
+            <td style=@tdstyle>@status</td>
+            <td style=@tdstyleHeading>Remark</td>
+            @{ string remark = Model.objInspectionCallRequest.InspectionRemark?.ToString() ?? string.Empty;}
+            <td style=@tdstyle>@remark</td>
+        </tr>
+
+
+    }
+    <tr>
+        <td rowspan="4" style=@tdstyleHeading>Contact Details</td>
+        <td style=@tdstyleHeading></td>
+        <td style=@tdstyleImidiateHeading>Supplier</td>
+        <td style=@tdstyleImidiateHeading>Sub Supplier</td>
+    </tr>
+    <tr>
+
+        <td style=@tdstyleHeading>Contact Name</td>
+        <td style=@tdstyle>@HelperMethods.CheckString(Model.objInspectionCallRequest.SupplierContactName)</td>
+        <td style=@tdstyle>@HelperMethods.CheckString(Model.objInspectionCallRequest.SubSupplierContactName)</td>
+    </tr>
+    <tr>
+        <td style=@tdstyleHeading>Contact Number</td>
+        <td style=@tdstyle>@HelperMethods.CheckString(Model.objInspectionCallRequest.SupplierContactNumber)</td>
+        <td style=@tdstyle>@HelperMethods.CheckString(Model.objInspectionCallRequest.SubSupplierContactNumber)</td>
+    </tr>
+    <tr>
+        <td style=@tdstyleHeading>Contact Email</td>
+        <td style=@tdstyle>@HelperMethods.CheckString(Model.objInspectionCallRequest.SupplierContactEmail)</td>
+        <td style=@tdstyle>@HelperMethods.CheckString(Model.objInspectionCallRequest.SubSupplierContactEmail)</td>
+    </tr>
+    <tr>
+        <td colspan="4" style=@tdstyleHeading>Items To be Inspected</td>
+    </tr>
+
+    <tr>
+        <td style=@tdstyleImidiateHeading>SO Number</td>
+        <td style=@tdstyleImidiateHeading>PO Number</td>
+        <td style=@tdstyleImidiateHeading>JOB Number</td>
+        <td style=@tdstyleImidiateHeading>SAP ID</td>
+        <td style=@tdstyleImidiateHeading>Description</td>
+        <td style=@tdstyleImidiateHeading>Quantity</td>
+
+    </tr>
+    @foreach (InspectionItem item in Model.objInspectionCallRequest.InspectionItems)
+    {
+
+
+        <tr>
+            <td style=@tdstyle>@item.SONumber </td>
+            <td style=@tdstyle>@item.PONumber </td>
+            <td style=@tdstyle>@item.JobNumber</td>
+            <td style=@tdstyle>@item.ItemNumber</td>
+            <td style=@tdstyle>@item.Description</td>
+            <td style=@tdstyle>@item.Quantity</td>
+
+        </tr>
+    }
+</table>
+
+
+@Html.Partial("/Views/Email/MailNote.cshtml", Model)
+
+<br />
+@if (Model.objInspectionCallRequest.IsKSBView)
+{
+    @Html.Partial("/Views/Email/MailSignature.cshtml", Model)
+}
+else
+{
+    @Html.Partial("/Views/Email/SupplierMailSignature.cshtml", Model)
+}
+
+
+
+

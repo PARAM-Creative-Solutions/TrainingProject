@@ -1,0 +1,238 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    canvas {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>User and material<small>(overview)</small></h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    @*<li>
+                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>*@
+
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+                
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div class="row">
+                        <div class="animated flipInY col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="tile-stats">
+                                <div class="icon">
+                                    <i class="fa fa-caret-square-o-right"></i>
+                                </div>
+                                <div class="count">179</div>
+                                <h3>New Sign ups</h3>
+                                <p>Lorem ipsum psdea itgum rixt.</p>
+                            </div>
+                        </div>
+                        <div class="animated flipInY col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="tile-stats">
+                                <div class="icon">
+                                    <i class="fa fa-comments-o"></i>
+                                </div>
+                                <div class="count">179</div>
+                                <h3>New Sign ups</h3>
+                                <p>Lorem ipsum psdea itgum rixt.</p>
+                            </div>
+                        </div>
+                        <div class="animated flipInY col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="tile-stats">
+                                <div class="icon">
+                                    <i class="fa fa-sort-amount-desc"></i>
+                                </div>
+                                <div class="count">179</div>
+                                <h3>New Sign ups</h3>
+                                <p>Lorem ipsum psdea itgum rixt.</p>
+                            </div>
+                        </div>
+                        <div class="animated flipInY col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="tile-stats">
+                                <div class="icon">
+                                    <i class="fa fa-check-square-o"></i>
+                                </div>
+                                <div class="count">179</div>
+                                <h3>New Sign ups</h3>
+                                <p>Lorem ipsum psdea itgum rixt.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    @*<form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">*@
+                    <div id="canvas-holder" style="width:100%;">
+                        <canvas id="chart-area" style="width:95%;"></canvas>
+                    </div>
+                </div>
+                @*<div class="ln_solid"></div>
+                    <button id="randomizeData">Randomize Data</button>
+                    <button id="addDataset">Add Dataset</button>
+                    <button id="removeDataset">Remove Dataset</button>
+                    <button id="addData">Add Data</button>
+                    <button id="removeData">Remove Data</button>*@
+                @*<div class="form-group">
+                    </div>*@
+
+                @*</form>*@
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+      var NumberOfUsers=@ViewBag.users;
+          var NumberOfMaterial=@ViewBag.material;
+      var randomScalingFactor = function () {
+          return Math.round(Math.random() * 100);
+      };
+      var myChart;
+      var chartSetting = {
+          type: 'doughnut',
+          data: {
+              datasets: [{
+                  data: [
+                      NumberOfUsers,
+                      NumberOfMaterial
+                  ],
+                  backgroundColor: [
+                      window.chartColors.red,
+                      window.chartColors.blue
+                  ],
+                  label: 'Dataset 1'
+              }],
+              labels: [
+                  'Users',
+                  'Material'
+              ]
+          },
+          options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              legend: {
+                  display: true,
+                  position: 'bottom',
+                  fullWidth: true,
+                  reverse: false
+              },
+              title: {
+                  display: true,
+                  text: 'Users And Material'
+              },
+              onClick: function (evt, elements) {
+                  var datasetIndex;
+                  var dataset;
+
+                  if (elements.length) {
+                      var index = elements[0]._index;
+                      datasetIndex = elements[0]._datasetIndex;
+                      // Reset old state
+                      dataset = myChart.data.datasets[datasetIndex];
+
+                      var activePoints = myChart.getElementsAtEvent(evt);
+                      var firstPoint = activePoints[0];
+                      var label = myChart.data.labels[firstPoint._index];
+                      var value = myChart.data.datasets[firstPoint._datasetIndex].data[firstPoint._index];
+                      // alert(label + ": " + value);
+                      var HrefUrl = "";
+                      switch (label) {
+                          case "Users":
+                              HrefUrl = '/Users/Index';
+                              break;
+                          case "Material":
+                              HrefUrl = '/Material/Index';
+                              break;
+                          default:
+
+                      }
+                      window.location.href = HrefUrl;
+                  }
+              },
+              bezierCurve : false,
+              animation: false
+          }
+      };
+
+      var ctx = document.getElementById('chart-area').getContext('2d');
+      myChart = new Chart(ctx, chartSetting);
+      window.onload = function () {
+
+      };
+        $(document).ready(function () {
+            //document.getElementById('randomizeData').addEventListener('click', function () {
+            //    chartSetting.data.datasets.forEach(function (dataset) {
+            //        dataset.data = dataset.data.map(function () {
+            //            return randomScalingFactor();
+            //        });
+            //    });
+
+            //    myChart.update();
+            //});
+
+            //var colorNames = Object.keys(window.chartColors);
+            //document.getElementById('addDataset').addEventListener('click', function () {
+            //    var newDataset = {
+            //        backgroundColor: [],
+            //        data: [],
+            //        label: 'New dataset ' + chartSetting.data.datasets.length,
+            //    };
+
+            //    for (var index = 0; index < chartSetting.data.labels.length; ++index) {
+            //        newDataset.data.push(randomScalingFactor());
+
+            //        var colorName = colorNames[index % colorNames.length];
+            //        var newColor = window.chartColors[colorName];
+            //        newDataset.backgroundColor.push(newColor);
+            //    }
+
+            //    chartSetting.data.datasets.push(newDataset);
+            //    myChart.update();
+            //});
+
+            //document.getElementById('addData').addEventListener('click', function () {
+            //    if (chartSetting.data.datasets.length > 0) {
+            //        chartSetting.data.labels.push('data #' + chartSetting.data.labels.length);
+
+            //        var colorName = colorNames[chartSetting.data.datasets[0].data.length % colorNames.length];
+            //        var newColor = window.chartColors[colorName];
+
+            //        chartSetting.data.datasets.forEach(function (dataset) {
+            //            dataset.data.push(randomScalingFactor());
+            //            dataset.backgroundColor.push(newColor);
+            //        });
+
+            //        myChart.update();
+            //    }
+            //});
+
+            //document.getElementById('removeDataset').addEventListener('click', function () {
+            //    chartSetting.data.datasets.splice(0, 1);
+            //    myChart.update();
+            //});
+
+            //document.getElementById('removeData').addEventListener('click', function () {
+            //    chartSetting.data.labels.splice(-1, 1); // remove the label first
+
+            //    chartSetting.data.datasets.forEach(function (dataset) {
+            //        dataset.data.pop();
+            //        dataset.backgroundColor.pop();
+            //    });
+
+            //    myChart.update();
+            //});
+        });
+
+    </script>
+
+}

@@ -1,0 +1,371 @@
+﻿@model IEnumerable<TrainingProjectDataLayer.DataLayer.Entities.DAL.ReportsType>
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<p><br /><br /><br /></p>
+<div class="">
+    <div class="panel panel-info" id="pSo">
+        <div class="panel-heading">
+            <span id="SpanExpander" class="pull-left clickable">
+                <i id="ILabel" class="glyphicon glyphicon-chevron-up" style="font-size:large;"></i>
+            </span><b class="collapse-link"> ReportType</b>
+        </div>
+        <div class="panel-body" style="display: block;">
+            <!-- #region CREATE NEW ReportType BUTTON -->
+            <div class="col-sm-4 form-group has-feedback">
+                <button type="button" class="form-control has-feedback-left btnCreate" style="color:#31708f;border-radius:4px;border-color:#31708f;" id="inputSuccess2"> Create New Report Type</button>
+                <span class="fa fa-user form-control-feedback left" style="color:#31708f;" aria-hidden="true"></span>
+            </div>
+            <!-- #endregion -->
+            <div class="col-sm-12">
+                <div style="width: 100%; padding-left: -10px;">
+                    <div class="table-responsive">
+                        <table class="SalesOrderDatatable table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed" cellspacing="0" role="grid" aria-describedby="datatable-responsive_info" style="width: 100%;">
+                            <thead>
+                                <tr role="row">
+                                    <th>@Html.DisplayNameFor(model => model.ReportName)</th>
+                                    <th>@Html.DisplayNameFor(model => model.ReportDesignType)</th>
+                                    
+                                    <th class="all">Options</th>
+                                </tr>
+                            </thead>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.ReportName)</td>
+                                    <td>@Enum.GetName(typeof(TrainingProjectDataLayer.Constants.SystemEnums.ReportDesignType), item.ReportDesignType)</td>
+                                    
+                                    <td class="all">
+                                        <div>
+                                            <a ReportTypeId='@item.ReportTypeID' class="btn btn-xs optionButton btnEdit"><i class="fa fa-pencil blue" data-toggle="tooltip" title="" data-placement="top" data-original-title="Edit"></i></a>
+                                            <a ReportTypeId='@item.ReportTypeID' class="btn btn-xs optionButton btnDetails"><i class="fa fa-file-text-o green" data-toggle="tooltip" title="" data-placement="top" data-original-title="Details"></i></a>
+                                            <a ReportTypeId='@item.ReportTypeID' class="btn btn-xs optionButton btnGenerate"><i class="fa fa-line-chart blue" data-toggle="tooltip" title="" data-placement="top" data-original-title="Create Report"></i></a>
+                                            <a onclick="DeleteReportType(@item.ReportTypeID)" class="btn btn-xs optionButton"><i class="fa fa-trash red" data-toggle="tooltip" title="" data-placement="top" data-original-title="Delete"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- #region MODAL FOR CREATE NEW ReportType -->
+<div class="modal fade " tabindex="-1" id="ReportTypeCreateModal" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-mg">
+        <div class="modal-content" id="ReportType">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModal">Create New ReportType</h4>
+            </div>
+            <div class="modal-body" id="ReportTypeCreateModalContent">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success Ok" id="btnOkCreate">OK</button>
+                <button type="button" class="btn btn-default" id=close data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- #endregion -->
+<!-- #region MODAL FOR EDIT ReportType -->
+<div class="modal fade " tabindex="-1" id="ReportTypeEditModal" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-mg">
+        <div class="modal-content" id="ReportType">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModal">Edit ReportType</h4>
+            </div>
+            <div class="modal-body" id="ReportTypeEditModalContent">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success Ok" id="btnOkEdit">OK</button>
+                <button type="button" class="btn btn-default" id=close data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- #endregion -->
+<!-- #region MODAL FOR ReportType DETAILS -->
+<div class="modal fade " tabindex="-1" id="ReportTypeDetailsModal" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-mg">
+        <div class="modal-content" id="ReportType">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModal">ReportType Details</h4>
+            </div>
+            <div class="modal-body" id="ReportTypeDetailsModalContent">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id=close data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- #endregion -->
+<!-- #region Script Create Modal -->
+<script type="text/javascript">
+    $(".btnCreate").click(function () {
+        var options =
+        {
+            "backdrop": "static",
+            keyboard: true
+        };
+        $.ajax(
+               {
+                   url: '/Report/Create',
+                   type: "GET",
+                   contentType: "application/json; charset=utf-8",
+                   datatype: "html",
+                   cache: false,
+                   success: function (data) {
+                       $('#ReportTypeCreateModalContent').html(data);
+                       $('#ReportTypeCreateModal').modal(options);
+                       $('#ReportTypeCreateModal').modal('show');
+                   }
+               });
+    });
+
+    $("#btnOkCreate").click(function () {
+
+        var valid = $('#frmCreateReportType').valid();
+        if (valid) {
+            submit();
+        }
+    });
+    function submit() {
+        var Notify = MessageBoxOK_Cancel("Do you Want To Create New ReportType ?");
+        var modeldata = $('#frmCreateReportType').serialize();
+        Notify.get().on('pnotify.confirm', function () {
+            $('.modal').modal('hide');
+            $.ajax(
+            {
+                url: '/Report/Create',
+                type: 'POST',
+                data: modeldata,
+                datatype: 'Json',
+                success: function (res) {
+                    if (res.Result) {
+                        var notify = MessageBoxOk(res.Message);
+                        notify.get().on('pnotify.confirm', function () {
+                            window.location.href = '/Report/Index';
+                        })
+                    }
+                    else {
+                        var notify = MessageBoxError(res.Message);
+                        notify.get().on('pnotify.confirm', function () {
+                            window.history.back();
+                        })
+                    }
+                }
+            });
+        });
+    }
+</script>
+<!-- #endregion -->
+<!-- #region Script Edit Modal -->
+<script type="text/javascript">
+
+    $(".btnEdit").click(function () {
+        var options =
+        {
+            "backdrop": "static",
+            keyboard: true
+        };
+        var _ReportTypeID = $(this).attr('ReportTypeId');
+        $.ajax(
+               {
+                   url: '/Report/Edit',
+                   type: "GET",
+                   contentType: "application/json; charset=utf-8",
+                   data: { id: _ReportTypeID },
+                   datatype: "html",
+                   cache: false,
+                   success: function (data) {
+                       $('#ReportTypeEditModalContent').html(data);
+                       $('#ReportTypeEditModal').modal(options);
+                       $('#ReportTypeEditModal').modal('show');
+                   }
+               });
+    });
+
+    $("#btnOkEdit").click(function () {
+        var valid = $('#frmEditReportType').valid();
+        if (valid) {
+            submitEdited();
+        }
+    });
+
+    function submitEdited() {
+        var Notify = MessageBoxOK_Cancel("Do You Want To Edit ReportType ?");
+        var modeldata = $('#frmEditReportType').serialize();
+        Notify.get().on('pnotify.confirm', function () {
+            $('.modal').modal('hide');
+            $.ajax(
+            {
+                url: '/Report/Edit',
+                type: 'POST',
+                data: modeldata,
+                datatype: 'Json',
+                success: function (res) {
+                    if (res.Result) {
+                        var notify = MessageBoxOk(res.Message);
+                        notify.get().on('pnotify.confirm', function () {
+                            window.location.href = '/Report/Index';
+                        })
+                    }
+                    else {
+                        var notify = MessageBoxError(res.Message);
+                        notify.get().on('pnotify.confirm', function () {
+                            window.history.back();
+                        })
+                    }
+                }
+
+            });
+        });
+    }
+</script>
+<!-- #endregion -->
+<!-- #region Script Details Modal -->
+<script type="text/javascript">
+    $(".btnDetails").click(function () {
+        var options =
+        {
+            "backdrop": "static",
+            keyboard: true
+        };
+        var _ReportTypeID = $(this).attr('ReportTypeId');
+        $.ajax(
+               {
+                   url: '/Report/Details',
+                   type: "GET",
+                   contentType: "application/json; charset=utf-8",
+                   data: { id: _ReportTypeID },
+                   datatype: "html",
+                   cache: false,
+                   success: function (data) {
+                       $('#ReportTypeDetailsModalContent').html(data);
+                       $('#ReportTypeDetailsModal').modal(options);
+                       $('#ReportTypeDetailsModal').modal('show');
+                   }
+               });
+    });
+</script>
+<!-- #endregion -->
+<!-- #region Script Delete ReportType -->
+<script type="text/javascript">
+    function DeleteReportType(_ReportTypeId) {
+
+        new PNotify({
+            title: 'Confirmation Needed',
+            text: 'Do You Want To Delete ReportType ?',
+            icon: 'glyphicon glyphicon-question-sign',
+            hide: false,
+            confirm: {
+                confirm: true
+            },
+            buttons: {
+                closer: false,
+                sticker: false
+            },
+            history: {
+                history: false
+            },
+            addclass: 'stack-modal',
+            stack: { 'dir1': 'down', 'dir2': 'right', 'modal': true }
+        }).get().on('pnotify.confirm', function () {
+
+            $.ajax({
+                url: '/Report/Delete',
+                type: 'POST',
+                data: { id: _ReportTypeId },
+                success: function (data) {
+                    if (data.success == true) {
+                        new PNotify({
+                            title: 'Success!',
+                            text: data.Message,
+                            type: 'success',
+                            icon: 'glyphicon glyphicon-info-sign',
+                            addclass: 'stack-modal',
+                            stack: { 'dir1': 'down', 'dir2': 'right', 'modal': true },
+                            hide: false,
+                            confirm: {
+                                confirm: true,
+                                buttons: [{
+                                    text: 'Ok',
+                                    addClass: 'btn-primary',
+                                    click: function (notice) {
+
+                                        window.location.href = '/Report/Index';
+                                        notice.remove();
+                                    }
+                                },
+                                null]
+                            },
+                            buttons: {
+                                closer: false,
+                                sticker: false
+                            },
+                            history: {
+                                history: false
+                            }
+                        });
+                    }
+                    else {
+                        new PNotify({
+                            title: 'Oh No!',
+                            text: 'Not connected to server',
+                            type: 'error',
+                            addclass: "stack-modal",
+                            stack: { "dir1": "down", "dir2": "left", 'modal': true, "overlay_close": true },
+                        });
+                    }
+                },
+                error: function (data) {
+                    new PNotify({
+                        title: 'Oh No!',
+                        text: 'Not connected to server',
+                        type: 'error',
+                        addclass: "stack-modal",
+                        stack: { "dir1": "down", "dir2": "left", 'modal': true, "overlay_close": true },
+                    });
+                }
+            });
+        }).on('pnotify.cancel', function () {
+            //alert('Oh ok. Chicken, I see.');
+        });
+    }
+</script>
+<!-- #endregion -->
+<!--#region Script Generate Report-->
+<script type="text/javascript">
+    $(".btnGenerate").on('click', function () {
+
+
+        var _ReportTypeID = $(this).attr('ReportTypeId');
+        var newURL = "/Report/ReportView.aspx?Rtype=" + _ReportTypeID;
+
+
+        $(this).attr('href', newURL);
+        $(this).attr('target', '_blank')
+
+
+    });
+</script>
+<!--#endregion-->

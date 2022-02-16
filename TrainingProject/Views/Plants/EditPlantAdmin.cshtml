@@ -1,0 +1,118 @@
+﻿@model TrainingProjectDataLayer.DataLayer.Entities.DAL.User
+
+@{
+    Layout = null;
+}
+@using (Html.BeginForm("EditPlantAdmin", "Plants", FormMethod.Post, new { id = "frmEditPlantAdmin" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.UserId)
+    @Html.HiddenFor(x => x.PlantId)
+    @Html.HiddenFor(x => x.CreatedOn)
+    @Html.HiddenFor(x => x.CreatedBy)
+    @Html.HiddenFor(x => x.LastModifiedBy)
+    @Html.HiddenFor(x => x.LastModifiedOn)
+    @Html.HiddenFor(x => x.UserName)
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.DeptId, "Deptartment", htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                @Html.DropDownListFor(model => model.DeptId, (IEnumerable<SelectListItem>)ViewBag.Departments, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DeptId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Init, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                @Html.EditorFor(model => model.Init, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.Init, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EmailId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserStatus,"User Status", htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                @Html.DropDownListFor(model => model.UserStatus, (IEnumerable<SelectListItem>)ViewBag.Status, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.UserStatus, "", new { @class = "text-danger" })
+            </div>
+        </div>        
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserRoles, "UserRoles", htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                @Html.ListBoxFor(model => model.SelectedRoles, (MultiSelectList)ViewBag.AllRoles, new { @multiple = "multiple", @size = (((MultiSelectList)ViewBag.AllRoles).Count() + 1) })
+                @Html.ValidationMessageFor(model => model.UserRoles, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+}
+<link href="~/Content/BootstrapDuallistbox/bootstrap-duallistbox.min.css" rel="stylesheet" />
+<script src="~/Scripts/BootstrapDuallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+@Scripts.Render("~/bundles/jqueryval")
+<link href="~/Content/Template/jquery.tagsinput.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.tagsinput/jquery.tagsinput.min.js"></script>
+<script type="text/javascript">
+    var Duallistdemo = $("#SelectedRoles").bootstrapDualListbox({
+        filterTextClear: 'show all',
+        filterPlaceHolder: 'Filter',
+        moveSelectedLabel: 'Move selected',
+        moveAllLabel: 'Move all',
+        removeSelectedLabel: 'Remove selected',
+        removeAllLabel: 'Remove all',
+    });
+
+    $("#EmailId").tagsInput(
+    {
+        width: 'auto',
+        height: '60px',
+        defaultText: 'add Email',
+        pattern: EmailValidation
+    });
+    var initial = $("").val();
+    $("#FirstName,#LastName").focusout(function () {
+        {
+            var firstname = $("#FirstName").val();
+            var lastname = $("#LastName").val();
+            if (firstname != "" && lastname != "") {
+                $("#Init").val(firstname.substr(0, 1).toUpperCase() + '' + lastname.substr(0, 1).toUpperCase())
+            }
+            else { $("#Init").val(""); }
+        }
+    });
+</script>

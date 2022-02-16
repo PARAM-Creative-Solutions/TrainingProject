@@ -1,0 +1,275 @@
+﻿@model TrainingProjectDataLayer.DataLayer.Entities.DAL.User
+
+@{
+    Layout = null;
+}
+@using (Html.BeginForm("Edit", "Users", FormMethod.Post, new { id = "frmEditUser" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.UserId)
+    @Html.HiddenFor(x => x.PlantId)
+    @Html.HiddenFor(x => x.CreatedOn)
+    @Html.HiddenFor(x => x.CreatedBy)
+    @Html.HiddenFor(x => x.LastModifiedBy)
+    @Html.HiddenFor(x => x.LastModifiedOn)
+    @Html.HiddenFor(x => x.UserName)
+    @Html.HiddenFor(x => x.PasswordLastModifiedOn)
+
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.DeptId, "Deptartment", htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                @Html.DropDownListFor(model => model.DeptId, (IEnumerable<SelectListItem>)ViewBag.Departments, Constants.Option, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DeptId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.MiddleName, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Init, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                @Html.EditorFor(model => model.Init, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Init, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @*<div class="form-group" id="divSAPSystemName">
+            @Html.LabelFor(model => model.SAPSystemName, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                @Html.EditorFor(model => model.SAPSystemName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SAPSystemName, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EmailId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserStatus, "User Status", htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                @Html.DropDownListFor(model => model.UserStatus, (IEnumerable<SelectListItem>)ViewBag.Status, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.UserStatus, "", new { @class = "text-danger" })
+            </div>
+        </div>    
+        <div id="ShowVendors" class="form-group ShowVendors">
+            @Html.LabelFor(model => model.VendorListId ,htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                @Html.DropDownListFor(model => model.VendorListId, (IEnumerable<SelectListItem>)ViewBag.VendorList, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.VendorListId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group" id="SelectedRoles">
+            @Html.LabelFor(model => model.UserRoles, "UserRoles", htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                @Html.ListBoxFor(model => model.SelectedRoles, (MultiSelectList)ViewBag.AllRoles, new { @multiple = "multiple", @size = (((MultiSelectList)ViewBag.AllRoles).Count() + 1) })
+                @Html.ValidationMessageFor(model => model.UserRoles, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui-1.9.0.min.js"></script>
+<link href="~/Content/BootstrapDuallistbox/bootstrap-duallistbox.min.css" rel="stylesheet" />
+<script src="~/Scripts/BootstrapDuallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+<script src="~/Scripts/jquery.tagsinput/jquery.tagsinput.min.js"></script>
+<script type="text/javascript">
+    var Duallistdemo = $("#SelectedRoles").bootstrapDualListbox({
+        filterTextClear: 'show all',
+        filterPlaceHolder: 'Filter',
+        moveSelectedLabel: 'Move selected',
+        moveAllLabel: 'Move all',
+        removeSelectedLabel: 'Remove selected',
+        removeAllLabel: 'Remove all',
+    });
+
+    $("#EmailId").tagsInput(
+    {
+        width: 'auto',
+        height: '60px',
+        defaultText: 'add Email',
+        pattern: EmailValidation
+    });
+    var initial = $("").val();
+    $("#FirstName,#LastName,#MiddleName").focusout(function () {
+        {
+            var firstname = $("#FirstName").val();
+            var middlename = $("#MiddleName").val();
+            var lastname = $("#LastName").val();
+            $("#Init").val(firstname.substr(0, 1).toUpperCase() + middlename.substr(0, 1).toUpperCase() + lastname.substr(0, 1).toUpperCase());
+        }
+    });
+
+    var deptName = $("#DeptId :selected").text(); // on page load without changing department
+    if (deptName == "VENDOR") {
+        // $("#divRole").hide('slowly'); //if vendor, hide roles
+
+        //$('#bootstrap-duallistbox-nonselected-list_SelectedRoles').prop('disabled', true);
+        //$('#bootstrap-duallistbox-selected-list_SelectedRoles').prop('disabled', true);
+    }
+    else
+    {
+        //$('#bootstrap-duallistbox-nonselected-list_SelectedRoles').prop('disabled', false);
+        //$('#bootstrap-duallistbox-selected-list_SelectedRoles').prop('disabled', false);
+
+    }
+
+    $(document).ready(function () {
+
+        var _deptName = $("#DeptId :selected").text();
+        if (_deptName == "SUPPLIER") //PREV IT WAS VENDOR
+        {
+            $(".ShowVendors").show();
+            $("#SelectedRoles").hide('slowly');
+        }
+
+        else {
+            $(".ShowVendors").hide();
+            $("#SelectedRoles").show('slowly');
+        }
+    })
+    $("#DeptId").change(function () {
+        {
+            
+            var _deptName = $("#DeptId :selected").text();
+            if (_deptName == "SUPPLIER") {
+              
+                $("#divSAPSystemName").hide('slowly');  //Show Vendor List
+                $(".ShowVendors").show('slowly');
+                $("#SelectedRoles").hide('slowly');
+               // $("#bootstrap-duallistbox-selected-list_SelectedRoles").find('option:contains(Vendor)').attr('selected', true);
+            }
+            else {
+                $("#divSAPSystemName").show('slowly');  //Show Vendor List
+                $(".ShowVendors").hide();
+                $("#SelectedRoles").show('slowly');
+               // $("#bootstrap-duallistbox-selected-list_SelectedRoles").click('option:contains(Vendor)');
+            }
+           // Duallistdemo.bootstrapDualListbox('refresh', true);
+        }
+    });
+
+
+
+
+
+
+
+            //function changeSelectionState(dualListbox, original_index, selected) {
+            //    dualListbox.element.find('option').each(function (index, item) {
+            //        var $item = $(item);
+            //        if ($item.data('original-index') === original_index) {
+            //            $item.prop('selected', selected);
+            //            if (selected) {
+            //                $item.attr('data-sortindex', dualListbox.sortIndex);
+            //                dualListbox.sortIndex++;
+            //            } else {
+            //                $item.removeAttr('data-sortindex');
+            //            }
+            //        }
+            //    });
+            //}
+
+
+            //$("#DeptId").change(function () {
+            //    {
+            //        
+            //        var _deptName = $("#DeptId :selected").text();
+            //        if (_deptName == "VENDOR") {
+            //            $("#ShowVendors").show('slowly');
+
+            //            $('#bootstrap-duallistbox-nonselected-list_SelectedRoles').prop('disabled', true);
+            //            $('#bootstrap-duallistbox-selected-list_SelectedRoles').prop('disabled', true);
+            //            //$("#SelectedRoles").find('option:selected').attr("selected", true);
+            //          //  $('#select-list option[value="somevalue"]').attr('selected', true);
+            //            //  $("#bootstrap-duallistbox-nonselected-list_SelectedRoles").find('option:contains(Vendor)').attr('selected', true);
+
+            //            $('#bootstrap-duallistbox-nonselected-list_SelectedRoles').find('option').each(function (index, item) {
+            //                var itemData = $(item);
+            //                itemData.prop('selected', true);
+            //            });
+
+            //            //Duallistdemo.find('option:selected').each(function (index, item) {
+            //            //    var $item = $(item);
+            //            //    $item.prop('selected', selected);
+            //            //});
+
+            //          //  refreshSelects(Duallistdemo);
+
+            //           // $('#bootstrap-duallistbox-selected-list_SelectedRoles').val(["Vendor"]);
+
+            //           // $('#bootstrap-duallistbox-nonselected-list_SelectedRoles option:contains(Vendor)').move().appendTo('#bootstrap-duallistbox-nonselected-list_SelectedRoles');
+
+
+
+
+            //        }
+            //        else {
+            //            $("#ShowVendors").hide();
+
+            //            $('#bootstrap-duallistbox-nonselected-list_SelectedRoles').prop('disabled', false);
+            //            $('#bootstrap-duallistbox-selected-list_SelectedRoles').prop('disabled', false);
+            //            //"bootstrap-duallistbox-selected-list_SelectedRoles";
+
+
+            //            $('#bootstrap-duallistbox-selected-list_SelectedRoles').find('option').each(function (index, item) {
+            //                var itemData = $(item);
+            //                itemData.prop('selected', false);
+            //            });
+
+            //           // refreshSelects(Duallistdemo);
+            //          //  $("#bootstrap-duallistbox-selected-list_SelectedRoles").find('option:contains(Vendor)').attr("selected", false);
+
+            //           // $('#bootstrap-duallistbox-selected-list_SelectedRoles').val();
+
+            //          //  $('#bootstrap-duallistbox-nonselected-list_SelectedRoles option:contains(Vendor)').remove().appendTo('#bootstrap-duallistbox-nonselected-list_SelectedRoles');
+            //          //  Duallistdemo.setMoveSelectedLabel('Vendor', 'refresh');
+            //         //   $("#bootstrap-duallistbox-selected-list_SelectedRoles").find('option:contains(Vendor)').attr('selected', false);
+
+
+            //         //   $("#divRole").show('slowly');
+            //        }
+            //        Duallistdemo.bootstrapDualListbox('refresh', true);
+            //    }
+            //});
+
+</script>

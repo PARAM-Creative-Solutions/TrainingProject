@@ -1,0 +1,69 @@
+﻿@model TrainingProjectDataLayer.DataLayer.Entities.DAL.Plant
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Delete Plant";
+}
+<style>
+    td{
+        width:50%;
+    }
+</style>
+<div class="">
+    <br /><br /><br />
+    <div class="panel panel-info" id="pSo">
+        <div class="panel-heading">
+            <span id="SpanExpander" class="pull-left clickable">
+                <i id="ILabel" class="glyphicon glyphicon-chevron-up" style="font-size:large"></i>
+            </span>
+            <b class="collapse-link">Delete Plant</b>
+        </div>
+        <div class="panel-body" style="display: block">
+            <div class="col-sm-12">
+                <div style="width:100%; padding-left:-10px">
+                    <table class="table table-striped table-bordered">
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.PlantCode)</th>
+                            <td>@Html.DisplayFor(model => model.PlantCode)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.PlantName)</th>
+                            <td>@Html.DisplayFor(model => model.PlantName)</td>
+                        </tr>
+                        <tr>
+                            <th> @Html.DisplayNameFor(model => model.Description)</th>
+                            <td> @Html.DisplayFor(model => model.Description)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.CreatedOn)</th>
+                            <td>@Html.DisplayFor(model => model.CreatedOn)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.CreatedBy)</th>
+                            <td>@Html.DisplayFor(model => model.CreatedBy)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.LastModifiedOn)</th>
+                            <td>@Html.DisplayFor(model => model.LastModifiedOn)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.LastModifiedBy)</th>
+                            <td>@Html.DisplayFor(model => model.LastModifiedBy)</td>
+                        </tr>
+                    </table>
+                </div>
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color mid_center">
+                        <button type="button" value="Delete" class="btn btn-info">Delete</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@Html.ActionLink("Back to List", "Index")
+

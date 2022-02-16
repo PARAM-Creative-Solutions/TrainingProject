@@ -1,0 +1,679 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="InspectionCallDataLayerReports">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>795067b5-c381-42ec-8204-3ae793297569</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet1">
+      <Query>
+        <DataSourceName>InspectionCallDataLayerReports</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="EndDate">
+          <DataField>EndDate</DataField>
+          <rd:TypeName>System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="InspectionCallAttendedOn">
+          <DataField>InspectionCallAttendedOn</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="InspectionCallDate">
+          <DataField>InspectionCallDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="InspectionCallRaisedOn">
+          <DataField>InspectionCallRaisedOn</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="NumberOfCallattended">
+          <DataField>NumberOfCallattended</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="NumberOfCallRaised">
+          <DataField>NumberOfCallRaised</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="NumberOfCallWaived">
+          <DataField>NumberOfCallWaived</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="PlantCode">
+          <DataField>PlantCode</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="StartDate">
+          <DataField>StartDate</DataField>
+          <rd:TypeName>System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="SupplierName">
+          <DataField>SupplierName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>TrainingProjectDataLayer.Reports</rd:DataSetName>
+        <rd:TableName>Reports</rd:TableName>
+        <rd:ObjectDataSourceType>TrainingProjectDataLayer.Reports.Reports, TrainingProjectDataLayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+  </DataSets>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <ReportItems>
+          <Textbox Name="Textbox57">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value xml:space="preserve">    </Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                      <FontSize>13pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>DarkBlue</Color>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>Inspection Stage Wise Report for Period - </Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                      <FontSize>13pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>=Parameters!SelectedDateRange.Value</Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                      <FontSize>13pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox57</rd:DefaultName>
+            <Height>0.35417in</Height>
+            <Width>8.19221in</Width>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <BackgroundColor>White</BackgroundColor>
+              <VerticalAlign>Middle</VerticalAlign>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Rectangle Name="Rectangle1">
+            <ReportItems>
+              <Tablix Name="Tablix2">
+                <TablixBody>
+                  <TablixColumns>
+                    <TablixColumn>
+                      <Width>10.41452cm</Width>
+                    </TablixColumn>
+                    <TablixColumn>
+                      <Width>2.5cm</Width>
+                    </TablixColumn>
+                  </TablixColumns>
+                  <TablixRows>
+                    <TablixRow>
+                      <Height>0.6cm</Height>
+                      <TablixCells>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox25">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Supplier Name</Value>
+                                      <Style>
+                                        <FontFamily>Calibri</FontFamily>
+                                        <FontWeight>Bold</FontWeight>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Center</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox25</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <BackgroundColor>LightGrey</BackgroundColor>
+                                <VerticalAlign>Middle</VerticalAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox27">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Number Of Call Raised</Value>
+                                      <Style>
+                                        <FontFamily>Calibri</FontFamily>
+                                        <FontWeight>Bold</FontWeight>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Center</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox27</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <BackgroundColor>LightGrey</BackgroundColor>
+                                <VerticalAlign>Middle</VerticalAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                      </TablixCells>
+                    </TablixRow>
+                    <TablixRow>
+                      <Height>0.6cm</Height>
+                      <TablixCells>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="SupplierName">
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Fields!SupplierName.Value</Value>
+                                      <Style>
+                                        <FontFamily>Calibri</FontFamily>
+                                        <FontWeight>Bold</FontWeight>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Center</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>SupplierName</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <VerticalAlign>Middle</VerticalAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="NumberOfCallRaised">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Fields!NumberOfCallRaised.Value</Value>
+                                      <Style>
+                                        <FontFamily>Calibri</FontFamily>
+                                        <FontWeight>Bold</FontWeight>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Center</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>NumberOfCallRaised</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <VerticalAlign>Middle</VerticalAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                      </TablixCells>
+                    </TablixRow>
+                  </TablixRows>
+                </TablixBody>
+                <TablixColumnHierarchy>
+                  <TablixMembers>
+                    <TablixMember />
+                    <TablixMember />
+                  </TablixMembers>
+                </TablixColumnHierarchy>
+                <TablixRowHierarchy>
+                  <TablixMembers>
+                    <TablixMember>
+                      <KeepWithGroup>After</KeepWithGroup>
+                    </TablixMember>
+                    <TablixMember>
+                      <Group Name="Details" />
+                    </TablixMember>
+                  </TablixMembers>
+                </TablixRowHierarchy>
+                <KeepTogether>true</KeepTogether>
+                <DataSetName>DataSet1</DataSetName>
+                <Height>1.2cm</Height>
+                <Width>12.91452cm</Width>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                </Style>
+              </Tablix>
+              <Rectangle Name="Rectangle3">
+                <ReportItems>
+                  <Chart Name="Chart2">
+                    <ChartCategoryHierarchy>
+                      <ChartMembers>
+                        <ChartMember>
+                          <Group Name="Chart2_CategoryGroup">
+                            <GroupExpressions>
+                              <GroupExpression>=Fields!SupplierName.Value</GroupExpression>
+                            </GroupExpressions>
+                          </Group>
+                          <SortExpressions>
+                            <SortExpression>
+                              <Value>=Fields!SupplierName.Value</Value>
+                            </SortExpression>
+                          </SortExpressions>
+                          <Label>=Fields!SupplierName.Value</Label>
+                        </ChartMember>
+                      </ChartMembers>
+                    </ChartCategoryHierarchy>
+                    <ChartSeriesHierarchy>
+                      <ChartMembers>
+                        <ChartMember>
+                          <Label>Number Of Call Raised</Label>
+                        </ChartMember>
+                      </ChartMembers>
+                    </ChartSeriesHierarchy>
+                    <ChartData>
+                      <ChartSeriesCollection>
+                        <ChartSeries Name="NumberOfCallRaised">
+                          <ChartDataPoints>
+                            <ChartDataPoint>
+                              <ChartDataPointValues>
+                                <Y>=Sum(Fields!NumberOfCallRaised.Value)</Y>
+                              </ChartDataPointValues>
+                              <ChartDataLabel>
+                                <Style />
+                                <UseValueAsLabel>true</UseValueAsLabel>
+                                <Visible>true</Visible>
+                              </ChartDataLabel>
+                              <Style />
+                              <ChartMarker>
+                                <Style />
+                              </ChartMarker>
+                              <DataElementOutput>Output</DataElementOutput>
+                            </ChartDataPoint>
+                          </ChartDataPoints>
+                          <Style />
+                          <ChartEmptyPoints>
+                            <Style />
+                            <ChartMarker>
+                              <Style />
+                            </ChartMarker>
+                            <ChartDataLabel>
+                              <Style />
+                            </ChartDataLabel>
+                          </ChartEmptyPoints>
+                          <ValueAxisName>Primary</ValueAxisName>
+                          <CategoryAxisName>Primary</CategoryAxisName>
+                          <ChartSmartLabel>
+                            <CalloutLineColor>Black</CalloutLineColor>
+                            <MinMovingDistance>0pt</MinMovingDistance>
+                          </ChartSmartLabel>
+                        </ChartSeries>
+                      </ChartSeriesCollection>
+                    </ChartData>
+                    <ChartAreas>
+                      <ChartArea Name="Default">
+                        <ChartCategoryAxes>
+                          <ChartAxis Name="Primary">
+                            <Style>
+                              <FontSize>8pt</FontSize>
+                            </Style>
+                            <ChartAxisTitle>
+                              <Caption>Inspection Stage</Caption>
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
+                            </ChartAxisTitle>
+                            <Interval>1</Interval>
+                            <IntervalType>Number</IntervalType>
+                            <ChartMajorGridLines>
+                              <Enabled>False</Enabled>
+                              <Style>
+                                <Border>
+                                  <Color>Gainsboro</Color>
+                                </Border>
+                              </Style>
+                            </ChartMajorGridLines>
+                            <ChartMinorGridLines>
+                              <Style>
+                                <Border>
+                                  <Color>Gainsboro</Color>
+                                  <Style>Dotted</Style>
+                                </Border>
+                              </Style>
+                            </ChartMinorGridLines>
+                            <ChartMinorTickMarks>
+                              <Length>0.5</Length>
+                            </ChartMinorTickMarks>
+                            <CrossAt>NaN</CrossAt>
+                            <Minimum>NaN</Minimum>
+                            <Maximum>NaN</Maximum>
+                            <Angle>-90</Angle>
+                            <MaxFontSize>12pt</MaxFontSize>
+                            <ChartAxisScaleBreak>
+                              <Style />
+                            </ChartAxisScaleBreak>
+                          </ChartAxis>
+                          <ChartAxis Name="Secondary">
+                            <Style>
+                              <FontSize>8pt</FontSize>
+                            </Style>
+                            <ChartAxisTitle>
+                              <Caption>Axis Title</Caption>
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
+                            </ChartAxisTitle>
+                            <ChartMajorGridLines>
+                              <Enabled>False</Enabled>
+                              <Style>
+                                <Border>
+                                  <Color>Gainsboro</Color>
+                                </Border>
+                              </Style>
+                            </ChartMajorGridLines>
+                            <ChartMinorGridLines>
+                              <Style>
+                                <Border>
+                                  <Color>Gainsboro</Color>
+                                  <Style>Dotted</Style>
+                                </Border>
+                              </Style>
+                            </ChartMinorGridLines>
+                            <ChartMinorTickMarks>
+                              <Length>0.5</Length>
+                            </ChartMinorTickMarks>
+                            <CrossAt>NaN</CrossAt>
+                            <Location>Opposite</Location>
+                            <Minimum>NaN</Minimum>
+                            <Maximum>NaN</Maximum>
+                            <ChartAxisScaleBreak>
+                              <Style />
+                            </ChartAxisScaleBreak>
+                          </ChartAxis>
+                        </ChartCategoryAxes>
+                        <ChartValueAxes>
+                          <ChartAxis Name="Primary">
+                            <Style>
+                              <FontSize>8pt</FontSize>
+                            </Style>
+                            <ChartAxisTitle>
+                              <Caption>Number Of call</Caption>
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
+                            </ChartAxisTitle>
+                            <IntervalType>Number</IntervalType>
+                            <ChartMajorGridLines>
+                              <Style>
+                                <Border>
+                                  <Color>Gainsboro</Color>
+                                </Border>
+                              </Style>
+                            </ChartMajorGridLines>
+                            <ChartMinorGridLines>
+                              <Style>
+                                <Border>
+                                  <Color>Gainsboro</Color>
+                                  <Style>Dotted</Style>
+                                </Border>
+                              </Style>
+                            </ChartMinorGridLines>
+                            <ChartMinorTickMarks>
+                              <Length>0.5</Length>
+                            </ChartMinorTickMarks>
+                            <CrossAt>NaN</CrossAt>
+                            <Minimum>NaN</Minimum>
+                            <Maximum>NaN</Maximum>
+                            <ChartAxisScaleBreak>
+                              <Style />
+                            </ChartAxisScaleBreak>
+                          </ChartAxis>
+                          <ChartAxis Name="Secondary">
+                            <Style>
+                              <FontSize>8pt</FontSize>
+                            </Style>
+                            <ChartAxisTitle>
+                              <Caption>Axis Title</Caption>
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
+                            </ChartAxisTitle>
+                            <ChartMajorGridLines>
+                              <Style>
+                                <Border>
+                                  <Color>Gainsboro</Color>
+                                </Border>
+                              </Style>
+                            </ChartMajorGridLines>
+                            <ChartMinorGridLines>
+                              <Style>
+                                <Border>
+                                  <Color>Gainsboro</Color>
+                                  <Style>Dotted</Style>
+                                </Border>
+                              </Style>
+                            </ChartMinorGridLines>
+                            <ChartMinorTickMarks>
+                              <Length>0.5</Length>
+                            </ChartMinorTickMarks>
+                            <CrossAt>NaN</CrossAt>
+                            <Location>Opposite</Location>
+                            <Minimum>NaN</Minimum>
+                            <Maximum>NaN</Maximum>
+                            <ChartAxisScaleBreak>
+                              <Style />
+                            </ChartAxisScaleBreak>
+                          </ChartAxis>
+                        </ChartValueAxes>
+                        <Style>
+                          <BackgroundGradientType>None</BackgroundGradientType>
+                        </Style>
+                      </ChartArea>
+                    </ChartAreas>
+                    <ChartLegends>
+                      <ChartLegend Name="Default">
+                        <Style>
+                          <BackgroundGradientType>None</BackgroundGradientType>
+                          <FontSize>8pt</FontSize>
+                        </Style>
+                        <ChartLegendTitle>
+                          <Caption />
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                            <FontWeight>Bold</FontWeight>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </ChartLegendTitle>
+                        <HeaderSeparatorColor>Black</HeaderSeparatorColor>
+                        <ColumnSeparatorColor>Black</ColumnSeparatorColor>
+                      </ChartLegend>
+                    </ChartLegends>
+                    <ChartTitles>
+                      <ChartTitle Name="Default">
+                        <Caption>Stage wise Inspection call Report 
+</Caption>
+                        <Style>
+                          <BackgroundGradientType>None</BackgroundGradientType>
+                          <FontWeight>Bold</FontWeight>
+                          <TextAlign>General</TextAlign>
+                          <VerticalAlign>Top</VerticalAlign>
+                        </Style>
+                      </ChartTitle>
+                    </ChartTitles>
+                    <Palette>BrightPastel</Palette>
+                    <ChartBorderSkin>
+                      <Style>
+                        <BackgroundColor>Gray</BackgroundColor>
+                        <BackgroundGradientType>None</BackgroundGradientType>
+                        <Color>White</Color>
+                      </Style>
+                    </ChartBorderSkin>
+                    <ChartNoDataMessage Name="NoDataMessage">
+                      <Caption>No Data Available</Caption>
+                      <Style>
+                        <BackgroundGradientType>None</BackgroundGradientType>
+                        <TextAlign>General</TextAlign>
+                        <VerticalAlign>Top</VerticalAlign>
+                      </Style>
+                    </ChartNoDataMessage>
+                    <DataSetName>DataSet1</DataSetName>
+                    <Top>0.47625cm</Top>
+                    <Left>0.00819cm</Left>
+                    <Height>12.2023cm</Height>
+                    <Width>23.43265cm</Width>
+                    <Style>
+                      <Border>
+                        <Color>LightGrey</Color>
+                        <Style>Solid</Style>
+                      </Border>
+                      <BackgroundColor>White</BackgroundColor>
+                      <BackgroundGradientType>None</BackgroundGradientType>
+                    </Style>
+                  </Chart>
+                </ReportItems>
+                <KeepTogether>true</KeepTogether>
+                <Top>1.49541cm</Top>
+                <Left>0.01638cm</Left>
+                <Height>12.67856cm</Height>
+                <Width>23.44084cm</Width>
+                <ZIndex>1</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                </Style>
+              </Rectangle>
+            </ReportItems>
+            <KeepTogether>true</KeepTogether>
+            <Top>1.07598cm</Top>
+            <Left>0.3937cm</Left>
+            <Height>16.8198cm</Height>
+            <Width>24.72374cm</Width>
+            <ZIndex>1</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Rectangle>
+        </ReportItems>
+        <Height>7.48494in</Height>
+        <Style />
+      </Body>
+      <Width>10.70126in</Width>
+      <Page>
+        <PageHeight>21cm</PageHeight>
+        <PageWidth>29.7cm</PageWidth>
+        <LeftMargin>0.5cm</LeftMargin>
+        <RightMargin>0cm</RightMargin>
+        <TopMargin>2cm</TopMargin>
+        <BottomMargin>2cm</BottomMargin>
+        <ColumnSpacing>0.13cm</ColumnSpacing>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="SelectedDateRange">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>1</NumberOfColumns>
+      <NumberOfRows>1</NumberOfRows>
+      <CellDefinitions>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>SelectedDateRange</ParameterName>
+        </CellDefinition>
+      </CellDefinitions>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
+  <EmbeddedImages>
+    <EmbeddedImage Name="KSB">
+      <MIMEType>image/jpeg</MIMEType>
+      <ImageData>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</ImageData>
+    </EmbeddedImage>
+  </EmbeddedImages>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>bd5a91f8-f659-4880-9d5e-7dab67d1f788</rd:ReportID>
+</Report>

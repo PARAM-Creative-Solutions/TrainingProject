@@ -1,0 +1,30 @@
+﻿@model TrainingProjectDataLayer.DataLayer.Entities.DAL.ReportsType
+
+@{
+    Layout = null;
+}
+<table class="table table-striped table-bordered">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.ReportName)</th>
+        <td>@Html.DisplayFor(model => model.ReportName )</td>
+    </tr>
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.ReportHeader)</th>
+        <td>@Html.DisplayFor(model => model.ReportHeader)</td>
+    </tr>
+
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.ReportDesignType)</th>
+        <td>@Enum.GetName(typeof(SystemEnums.ReportDesignType), Model.ReportDesignType)</td>
+    </tr>
+
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.ReportTableView)</th>
+        <td>@Html.DisplayFor(model => model.ReportTableView)</td>
+    </tr>
+
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.ReportDetailView)</th>
+        <td>@Html.DisplayFor(model => model.ReportDetailView)</td>
+    </tr>
+</table>

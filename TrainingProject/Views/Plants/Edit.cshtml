@@ -1,0 +1,49 @@
+﻿@model TrainingProjectDataLayer.DataLayer.Entities.DAL.Plant
+   
+@{
+    Layout = null;
+    ViewBag.Title = "Edit Plant";
+}
+@Scripts.Render("~/bundles/jqueryval")
+@using (Html.BeginForm("Edit", "Plant", FormMethod.Post, new { id = "frmEditPlant" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.PlantId)
+    @Html.HiddenFor(x=>x.CreatedBy)
+    @Html.HiddenFor(x => x.CreatedOn)
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.PlantCode, htmlAttributes: new { @class = "control-label col-md-5 col-sm-5 col-xs-12" })
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                @Html.EditorFor(model => model.PlantCode, new { htmlAttributes = new { @class = "form-control has-feedback-left" } })
+                <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
+                 @Html.ValidationMessageFor(model => model.PlantCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PlantName, htmlAttributes: new { @class = "control-label col-md-5 col-sm-5 col-xs-12" })
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                @Html.EditorFor(model => model.PlantName, new { htmlAttributes = new { @class = "form-control has-feedback-left" } })
+                <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                 @Html.ValidationMessageFor(model => model.PlantName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-5 col-sm-5 col-xs-12" })
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control has-feedback-left" } })
+                <span class="fa fa-th form-control-feedback left" aria-hidden="true"></span>
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PlantStatusId, "Plant Status", htmlAttributes: new { @class = "control-label col-md-5 col-sm-5 col-xs-12" })
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                @Html.DropDownListFor(model => model.PlantStatusId, (IEnumerable<SelectListItem>)ViewBag.Status,"--Select--", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PlantStatusId, "", new { @class = "text-danger" })
+            </div>
+        </div>    
+        
+    </div>
+}

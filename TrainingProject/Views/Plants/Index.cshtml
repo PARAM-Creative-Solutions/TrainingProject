@@ -1,0 +1,370 @@
+﻿@model IEnumerable<TrainingProjectDataLayer.DataLayer.Entities.DAL.Plant>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- #region HTML CODE -->
+<p><br /><br /><br /></p>
+<div class="">
+    <div class="panel panel-info" id="pSo">
+        <div class="panel-heading">
+            <span id="SpanExpander" class="pull-left clickable">
+                <i id="ILabel" class="glyphicon glyphicon-chevron-up" style="font-size:large;"></i>
+            </span><b class="collapse-link"> Plants </b>
+        </div>
+        <div class="panel-body" style="display: block;">
+            <!-- #region CREATE NEW PLANT BUTTON -->
+            <div class="col-sm-3 form-group has-feedback" style="width:244px;">
+                <button type="button" class="form-control has-feedback-left btnCreate" style="color:#31708f;border-radius:4px;border-color:#31708f;" id="inputSuccess2"> Create Plant </button>
+                <span class="fa fa-th form-control-feedback left" style="color:#31708f;" aria-hidden="true"></span>
+            </div>
+            <!-- #endregion -->
+            <div class="col-sm-12">
+                <div style="width: 100%; padding-left: -10px;">
+                    <div class="table-responsive">
+                        <table class="SalesOrderDatatable table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed" cellspacing="0" role="grid" aria-describedby="datatable-responsive_info" style="width: 100%;">
+                            <thead>
+                                <tr role="row">
+                                    <th> @Html.DisplayNameFor(model => model.PlantCode)</th>
+                                    <th>@Html.DisplayNameFor(model => model.PlantName)</th>
+                                    <th>@Html.DisplayNameFor(model => model.Description)</th>
+                                    <th>@Html.DisplayNameFor(model => model.PlantStatu.Status)</th>
+                                    <th>@Html.DisplayNameFor(model => model.CreatedBy) </th>
+                                    <th> @Html.DisplayNameFor(model => model.CreatedOn)</th>
+                                    <th> @Html.DisplayNameFor(model => model.LastModifiedBy) </th>
+                                    <th> @Html.DisplayNameFor(model => model.LastModifiedOn) </th>
+
+                                    <th class="all">Options</th>
+                                </tr>
+                            </thead>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.PlantCode) </td>
+                                    <td>@Html.DisplayFor(modelItem => item.PlantName)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                                    <td><span class="btn btn-success btn-xs">@Html.DisplayFor(modelItem => item.PlantStatu.Status)</span></td>
+                                    <td>@Html.DisplayFor(modelItem => item.CreatedBy)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.CreatedOn)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.LastModifiedBy)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.LastModifiedOn)</td>
+                                    <td class="all">
+                                        <div>
+                                            <a class="btn btn-xs optionButton btnEdit" PlantId="@item.PlantId"><i class="fa fa-pencil blue" data-toggle="tooltip" title="" data-placement="top" data-original-title="Edit"></i></a>
+                                            <a class="btn btn-xs optionButton btnDetails" PlantId="@item.PlantId"><i class="fa fa-file-text-o green" data-toggle="tooltip" title="" data-placement="top" data-original-title="Details"></i></a>
+                                            <a onclick="DeletePlant(@item.PlantId)" class="btn btn-xs optionButton"><i class="fa fa-trash red" data-toggle="tooltip" title="" data-placement="top" data-original-title="Delete"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div><br /></div>
+<!-- #endregion -->
+<!-- #region MODAL FOR CREATE NEW Plant -->
+<div class="modal fade " tabindex="-1" id="PlantCreateModal" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-mg">
+        <div class="modal-content" id="Plant">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModal">Create Plant</h4>
+            </div>
+            <div class="modal-body" id="PlantCreateModalContent">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success Ok" id="btnOkCreate">OK</button>
+                <button type="button" class="btn btn-default" id=close data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- #endregion -->
+<!-- #region MODAL FOR EDIT MDL -->
+<div class="modal fade " tabindex="-1" id="PlantEditModal" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-mg">
+        <div class="modal-content" id="Plant">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModal">Edit Plant</h4>
+            </div>
+            <div class="modal-body" id="PlantEditModalContent">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success Ok" id="btnOkEdit">OK</button>
+                <button type="button" class="btn btn-default" id=close data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- #endregion -->
+<!-- #region MODAL FOR MDL DETAILS -->
+<div class="modal fade " tabindex="-1" id="PlantDetailsModal" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-mg">
+        <div class="modal-content" id="Plant">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModal">Plant Details</h4>
+            </div>
+            <div class="modal-body" id="PlantDetailsModalContent">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id=close data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- #endregion -->
+<!-- #region Script Create Modal -->
+<script type="text/javascript">
+    $(".btnCreate").click(function () {
+
+        var options =
+        {
+            "backdrop": "static",
+            keyboard: true
+        };
+
+        $.ajax(
+        {
+            url: '/Plants/Create',
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            datatype: "html",
+            cache: false,
+            success: function (data) {
+                $('#PlantCreateModalContent').html(data);
+                $('#PlantCreateModal').modal(options);
+                $('#PlantCreateModal').modal('show');
+            }
+        })
+    });
+
+    $("#btnOkCreate").click(function () {
+
+        var valid = $('#frmCreatePlant').valid();
+        if (valid) {
+            submit();
+        }
+    });
+
+    function submit() {
+
+        var Notify = MessageBoxOK_Cancel("Do You Want To Create New Plant ?");
+        var modeldata = $('#frmCreatePlant').serialize();
+        Notify.get().on('pnotify.confirm', function () {
+            $('.modal').modal('hide');
+            $.ajax(
+            {
+                url: '/Plants/Create',
+                type: 'POST',
+                data: modeldata,
+                datatype: 'Json',
+                success: function (res) {
+                    if (res.Result) {
+                        var notify = MessageBoxOk(res.Message);
+                        notify.get().on('pnotify.confirm', function () {
+                            window.location.href = '/Plants/Index';
+                        })
+                    }
+                    else {
+                        var notify = MessageBoxError(res.Message);
+                        notify.get().on('pnotify.confirm', function () {
+                            window.history.back();
+                        })
+                    }
+                }
+            });
+        });
+    }
+</script>
+<!-- #endregion -->
+<!-- #region Script Edit Modal -->
+<script type="text/javascript">
+    $(".btnEdit").click(function () {
+        var options =
+        {
+            "backdrop": "static",
+            keyboard: true
+        };
+        var _PlantId = $(this).attr('PlantId');
+        $.ajax(
+               {
+                   url: '/Plants/Edit',
+                   type: "GET",
+                   contentType: "application/json; charset=utf-8",
+                   data: { id: _PlantId },
+                   datatype: "html",
+                   cache: false,
+                   success: function (data) {
+                       $('#PlantEditModalContent').html(data);
+                       $('#PlantEditModal').modal(options);
+                       $('#PlantEditModal').modal('show');
+                   }
+               });
+    });
+
+    $("#btnOkEdit").click(function () {
+        var valid = $('#frmEditPlant').valid();
+        if (valid) {
+            submitEdited();
+        }
+    });
+
+    function submitEdited() {
+        var Notify = MessageBoxOK_Cancel("Do you Want To Edit Plant ?");
+        var modeldata = $('#frmEditPlant').serialize();
+        Notify.get().on('pnotify.confirm', function () {
+            $('.modal').modal('hide');
+            $.ajax(
+            {
+                url: '/Plants/Edit',
+                type: 'POST',
+                data: modeldata,
+                datatype: 'Json',
+                success: function (res) {
+                    if (res.Result) {
+                        var notify = MessageBoxOk(res.Message);
+                        notify.get().on('pnotify.confirm', function () {
+                            window.location.href = '/Plants/Index';
+                        })
+                    }
+                    else {
+                        var notify = MessageBoxError(res.Message);
+                        notify.get().on('pnotify.confirm', function () {
+                            window.history.back();
+                        })
+                    }
+                }
+
+            });
+        });
+    }
+
+</script>
+<!-- #endregion -->
+<!-- #region Script Details Modal -->
+<script type="text/javascript">
+    $(".btnDetails").click(function () {
+
+        var options =
+        {
+            "backdrop": "static",
+            keyboard: true
+        };
+        var _PlantId = $(this).attr('PlantId');
+        $.ajax(
+               {
+                   url: '/Plants/Details',
+                   type: "GET",
+                   contentType: "application/json; charset=utf-8",
+                   data: { id: _PlantId },
+                   datatype: "html",
+                   cache: false,
+                   success: function (data) {
+                       $('#PlantDetailsModalContent').html(data);
+                       $('#PlantDetailsModal').modal(options);
+                       $('#PlantDetailsModal').modal('show');
+                   }
+               });
+    });
+</script>
+<!-- #endregion -->
+<!-- #region Script Delete Plant -->
+<script type="text/javascript">
+    function DeletePlant(PlantId) {
+
+        new PNotify({
+            title: 'Confirmation Needed',
+            text: 'Do You Want To Delete Plant ?',
+            icon: 'glyphicon glyphicon-question-sign',
+            hide: false,
+            confirm: {
+                confirm: true
+            },
+            buttons: {
+                closer: false,
+                sticker: false
+            },
+            history: {
+                history: false
+            },
+            addclass: 'stack-modal',
+            stack: { 'dir1': 'down', 'dir2': 'right', 'modal': true }
+        }).get().on('pnotify.confirm', function () {
+
+            $.ajax({
+                url: '/Plants/Delete',
+                type: 'POST',
+                data: { id: PlantId },
+                success: function (data) {
+                    if (data.success == true) {
+                        new PNotify({
+                            title: 'Success!',
+                            text: data.result,
+                            type: 'success',
+                            icon: 'glyphicon glyphicon-info-sign',
+                            addclass: 'stack-modal',
+                            stack: { 'dir1': 'down', 'dir2': 'right', 'modal': true },
+                            hide: false,
+                            confirm: {
+                                confirm: true,
+                                buttons: [{
+                                    text: 'Ok',
+                                    addClass: 'btn-primary',
+                                    click: function (notice) {
+
+                                        window.location.href = '/Plants/Index';
+                                        notice.remove();
+                                    }
+                                },
+                                null]
+                            },
+                            buttons: {
+                                closer: false,
+                                sticker: false
+                            },
+                            history: {
+                                history: false
+                            }
+                        });
+                    }
+                    else {
+                        new PNotify({
+                            title: 'Oh No!',
+                            text: 'Not connected to server',
+                            type: 'error',
+                            addclass: "stack-modal",
+                            stack: { "dir1": "down", "dir2": "left", 'modal': true, "overlay_close": true },
+                        });
+                    }
+                },
+                error: function (data) {
+                    new PNotify({
+                        title: 'Oh No!',
+                        text: 'Not connected to server',
+                        type: 'error',
+                        addclass: "stack-modal",
+                        stack: { "dir1": "down", "dir2": "left", 'modal': true, "overlay_close": true },
+                    });
+                }
+            });
+        }).on('pnotify.cancel', function () {
+            //alert('Oh ok. Chicken, I see.');
+        });
+    }
+</script>
+<!-- #endregion -->

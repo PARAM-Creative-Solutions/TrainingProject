@@ -1,0 +1,63 @@
+﻿@model TrainingProject.Models.MailManager.MailData
+
+   <style>
+    .TableStyle1 {
+        width: 50%;
+        background-color: #fff;
+    }
+
+        .TableStyle1 tr:nth-child(even) {
+            background-color: #eee;
+        }
+
+        .TableStyle1 tr:nth-child(odd) {
+            background-color: #fff;
+        }
+
+        .TableStyle1 th {
+            color: black;
+            background-color: #D3D3D3;
+        }
+
+    table, th, td {
+        border: 1px solid black;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 5px;
+    }
+</style> 
+<h5> <b> SalesOrder Details : </b> </h5>
+    <table class="TableStyle1">
+        <tr>
+            <td>Client Name</td>
+            <td>@Html.DisplayFor(model => model.SalesOrder.Client.ClientName, new { htmlAttributes = new { @class = "form-control col-md-3 col-xs-6", @disabled = "disabled" } })</td>
+        <tr>
+        <tr>
+            <td>SalesOrder Number</td>
+            <td>@Html.DisplayFor(model => model.SalesOrder.SalesOrderNumber, new { htmlAttributes = new { @class = "form-control col-md-3 col-xs-6", @disabled = "disabled" } })</td>
+        </tr>
+        @*<tr>
+            <td>SalesOrder Name</td>
+            <td>@Html.DisplayFor(model => model.SalesOrder.SalesOrderName, new { htmlAttributes = new { @class = "form-control col-md-3 col-xs-6", @disabled = "disabled" } })</td>
+        </tr>*@        
+        @if(Model.DocVersionlist != null && Model.Doclist == null)
+        {
+            <tr>
+                <td>P.O/LOI NO</td>
+                <td>@Html.DisplayFor(model => model.SalesOrder.PONumber , new { htmlAttributes = new { @class = "form-control col-md-3 col-xs-6", @disabled = "disabled" } })</td>
+            </tr>
+        }
+     
+    </table>    
+

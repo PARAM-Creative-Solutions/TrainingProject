@@ -1,0 +1,358 @@
+﻿@model IEnumerable<TrainingProjectDataLayer.DataLayer.Entities.DAL.Right>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<p><br /><br /><br /></p>
+<div class="">
+  
+    <div class="panel panel-info" id="pSo">
+        <div class="panel-heading">
+            <span id="SpanExpander" class="pull-left clickable">
+                <i id="ILabel" class="glyphicon glyphicon-chevron-up" style="font-size:large;"></i>
+            </span><b class="collapse-link"> Rights</b>
+        </div>
+        <div class="panel-body" style="display: block;">
+            <!-- #region CREATE NEW RIGHT BUTTON -->
+            <div class="col-sm-3 form-group has-feedback" style="width:244px;">
+                <button type="button" class="form-control has-feedback-left btnCreate" style="color:#31708f;border-radius:4px;border-color:#31708f;" id="inputSuccess2"> Update System Right</button>
+                <span class="fa fa-user form-control-feedback left" style="color:#31708f;" aria-hidden="true"></span>
+            </div>
+            <!-- #endregion -->
+            <div class="col-sm-12">
+                <div style="width: 100%; padding-left: -10px;">
+                    <div class="table-responsive">
+                        <table class="SalesOrderDatatable table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed" cellspacing="0" role="grid" data-order="[[ 0, &quot;asc&quot; ]]" aria-describedby="datatable-responsive_info" style="width: 100%;">
+                            <thead>
+                                <tr role="row">
+                                    <th>Right Number</th>
+                                    <th>@Html.DisplayNameFor(model => model.RightName)</th>
+                                    <th>@Html.DisplayNameFor(model => model.Description)</th>
+                                    @*<th class="all">Options</th>*@
+                                </tr>
+                            </thead>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.RightId)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.RightName)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                                    @*<td class="all">
+                                        <div>
+                                            <a RightId='@item.RightId' class="btn btn-xs optionButton btnEdit"><i class="fa fa-pencil blue" data-toggle="tooltip" title="" data-placement="top" data-original-title="Edit"></i></a>
+                                            <a RightId='@item.RightId' class="btn btn-xs optionButton btnDetails"><i class="fa fa-file-text-o green" data-toggle="tooltip" title="" data-placement="top" data-original-title="Details"></i></a>
+                                            <a onclick="DeleteRight(@item.RightId)" class="btn btn-xs optionButton"><i class="fa fa-trash red" data-toggle="tooltip" title="" data-placement="top" data-original-title="Delete"></i></a>
+                                        </div>
+                                    </td>*@
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- #region MODAL FOR CREATE NEW RIGHT -->
+<div class="modal fade " tabindex="-1" id="RightCreateModal" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-mg">
+        <div class="modal-content" id="Right">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModal">Create New Right</h4>
+            </div>
+            <div class="modal-body" id="RightCreateModalContent">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success Ok" id="btnOkCreate">OK</button>
+                <button type="button" class="btn btn-default" id=close data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- #endregion -->
+
+<!-- #region MODAL FOR EDIT RIGHT -->
+<div class="modal fade" tabindex="-1" id="RightEditModal" role="dialog" @*aria-hidden="true" style="display: none;"*@>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" id="Right">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModal">Edit Right</h4>
+            </div>
+            <div class="modal-body" id="RightEditModalContent">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success Ok" id="btnOkEdit">OK</button>
+                <button type="button" class="btn btn-default" id=close data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- #endregion -->
+
+<!-- #region MODAL FOR RIGHT DETAILS -->
+<div class="modal fade " tabindex="-1" id="RightDetailsModal" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-mg">
+        <div class="modal-content" id="Right">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModal">Right Details</h4>
+            </div>
+            <div class="modal-body" id="RightDetailsModalContent">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id=close data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- #endregion -->
+
+<!-- #region Script Create Modal -->
+<script type="text/javascript">
+    $(".btnCreate").click(function () {
+        var options =
+        {
+            "backdrop": "static",
+            keyboard: true
+        };
+        $.ajax(
+               {
+                   url: '/Rights/UpdateSystemRights',
+                   type: "GET",
+                   contentType: "application/json; charset=utf-8",
+                   datatype: "html",
+                   cache: false,
+                   success: function (res) {
+                       var notify = MessageBoxOk(res.Message);
+                       notify.get().on('pnotify.confirm', function () {
+                           window.location.href = '/Rights/Index';
+                       })
+                   }
+               });
+    });
+
+    $("#btnOkCreate").click(function () {
+
+        var valid = $('#frmCreateRight').valid();
+        if (valid) {
+            submit();
+        }
+    });
+    function submit() {
+        var Notify = MessageBoxOK_Cancel("Do you Want To Create New Right ?");
+        var modeldata = $('#frmCreateRight').serialize();
+        Notify.get().on('pnotify.confirm', function () {
+            $('.modal').modal('hide');
+            $.ajax(
+            {
+                url: '/Rights/Create',
+                type: 'POST',
+                data: modeldata,
+                datatype: 'Json',
+                success: function (res) {
+                    if (res.Result) {
+                        var notify = MessageBoxOk(res.Message);
+                        notify.get().on('pnotify.confirm', function () {
+                            window.location.href = '/Rights/Index';
+                        })
+                    }
+                    else {
+                        var notify = MessageBoxError(res.Message);
+                        notify.get().on('pnotify.confirm', function () {
+                            window.history.back();
+                        })
+                    }
+                }
+            });
+        });
+    }
+</script>
+<!-- #endregion -->
+<!-- #region Script Edit Modal -->
+<script type="text/javascript">
+
+    $(".btnEdit").click(function () {
+        var options =
+        {
+            "backdrop": "static",
+            keyboard: true
+        };
+        var _RightID = $(this).attr('RightId');
+        $.ajax(
+               {
+                   url: '/Rights/Edit',
+                   type: "GET",
+                   contentType: "application/json; charset=utf-8",
+                   data: { id: _RightID },
+                   datatype: "html",
+                   cache: false,
+                   success: function (data) {
+                       $('#RightEditModalContent').html(data);
+                       $('#RightEditModal').modal(options);
+                       $('#RightEditModal').modal('show');
+                   }
+               });
+    });
+
+    $("#btnOkEdit").click(function () {
+        var valid = $('#frmEditRight').valid();
+        if (valid) {
+            submitEdited();
+        }
+    });
+
+    function submitEdited() {
+        var Notify = MessageBoxOK_Cancel("Do You Want To Edit Right ?");
+        var modeldata = $('#frmEditRight').serialize();
+        Notify.get().on('pnotify.confirm', function () {
+            $('.modal').modal('hide');
+            $.ajax(
+            {
+                url: '/Rights/Edit',
+                type: 'POST',
+                data: modeldata,
+                datatype: 'Json',
+                success: function (res) {
+                    if (res.Result) {
+                        var notify = MessageBoxOk(res.Message);
+                        notify.get().on('pnotify.confirm', function () {
+                            window.location.href = '/Rights/Index';
+                        })
+                    }
+                    else {
+                        var notify = MessageBoxError(res.Message);
+                        notify.get().on('pnotify.confirm', function () {
+                            window.history.back();
+                        })
+                    }
+                }
+
+            });
+        });
+    }
+</script>
+<!-- #endregion -->
+<!-- #region Script Details Modal -->
+<script type="text/javascript">
+    $(".btnDetails").click(function () {
+        var options =
+        {
+            "backdrop": "static",
+            keyboard: true
+        };
+        var _RightID = $(this).attr('RightId');
+        $.ajax(
+               {
+                   url: '/Rights/Details',
+                   type: "GET",
+                   contentType: "application/json; charset=utf-8",
+                   data: { id: _RightID },
+                   datatype: "html",
+                   cache: false,
+                   success: function (data) {
+                       $('#RightDetailsModalContent').html(data);
+                       $('#RightDetailsModal').modal(options);
+                       $('#RightDetailsModal').modal('show');
+                   }
+               });
+    });
+</script>
+<!-- #endregion -->
+<!-- #region Script Delete Right -->
+<script type="text/javascript">
+    function DeleteRight(_RightId) {
+
+        new PNotify({
+            title: 'Confirmation Needed',
+            text: 'Do You Want To Delete Right ?',
+            icon: 'glyphicon glyphicon-question-sign',
+            hide: false,
+            confirm: {
+                confirm: true
+            },
+            buttons: {
+                closer: false,
+                sticker: false
+            },
+            history: {
+                history: false
+            },
+            addclass: 'stack-modal',
+            stack: { 'dir1': 'down', 'dir2': 'right', 'modal': true }
+        }).get().on('pnotify.confirm', function () {
+
+            $.ajax({
+                url: '/Rights/Delete',
+                type: 'POST',
+                data: { id: _RightId },
+                success: function (data) {
+                    if (data.success == true) {
+                        new PNotify({
+                            title: 'Success!',
+                            text: data.result,
+                            type: 'success',
+                            icon: 'glyphicon glyphicon-info-sign',
+                            addclass: 'stack-modal',
+                            stack: { 'dir1': 'down', 'dir2': 'right', 'modal': true },
+                            hide: false,
+                            confirm: {
+                                confirm: true,
+                                buttons: [{
+                                    text: 'Ok',
+                                    addClass: 'btn-primary',
+                                    click: function (notice) {
+
+                                        window.location.href = '/Rights/Index';
+                                        notice.remove();
+                                    }
+                                },
+                                null]
+                            },
+                            buttons: {
+                                closer: false,
+                                sticker: false
+                            },
+                            history: {
+                                history: false
+                            }
+                        });
+                    }
+                    else {
+                        new PNotify({
+                            title: 'Oh No!',
+                            text: 'Not connected to server',
+                            type: 'error',
+                            addclass: "stack-modal",
+                            stack: { "dir1": "down", "dir2": "left", 'modal': true, "overlay_close": true },
+                        });
+                    }
+                },
+                error: function (data) {
+                    new PNotify({
+                        title: 'Oh No!',
+                        text: 'Not connected to server',
+                        type: 'error',
+                        addclass: "stack-modal",
+                        stack: { "dir1": "down", "dir2": "left", 'modal': true, "overlay_close": true },
+                    });
+                }
+            });
+        }).on('pnotify.cancel', function () {
+            //alert('Oh ok. Chicken, I see.');
+        });
+    }
+</script>
+<!-- #endregion -->

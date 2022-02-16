@@ -1,0 +1,304 @@
+﻿@model TrainingProjectDataLayer.DataLayer.Entities.DAL.User
+
+@{
+    ViewBag.Title = "UserProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2><br /></h2>
+<div class="">
+    <br />
+    <div class="panel panel-info" id="pSo">
+        <div class="panel-heading">
+            <span id="SpanExpander" class="pull-left clickable">
+                <i id="ILabel" class="glyphicon glyphicon-chevron-up" style="font-size:large;"></i>
+            </span><b class="collapse-link">Profile</b>
+        </div>
+        <div class="panel-body" style="display: block;">
+            <div class="col-sm-12">
+                <div style="width: 100%; padding-left: -10px;">
+                    @using (Html.BeginForm("UserProfile", "Users", FormMethod.Post, new { id = "frmUserProfile" }))
+                    {
+                        <div class="form-horizontal">
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.UserId)
+                            @Html.HiddenFor(model => model.Init)
+                            @Html.HiddenFor(model => model.DeptId)
+                            @Html.HiddenFor(model => model.Department.DeptId)
+                            @*@Html.HiddenFor(model => model.UserStatus)*@
+                            @Html.HiddenFor(model => model.CreatedOn)
+                            @Html.HiddenFor(model => model.CreatedBy)
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                <div class="col-md-7 col-sm-7 col-xs-12">
+                                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                <div class="col-md-7 col-sm-7 col-xs-12">
+                                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            @*<div class="form-group">
+                                @Html.LabelFor(model => model.SAPSystemName, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                <div class="col-md-7 col-sm-7 col-xs-12">
+                                    @Html.EditorFor(model => model.SAPSystemName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(model => model.SAPSystemName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>*@
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Department, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                <div class="col-md-7 col-sm-7 col-xs-12">
+                                    @Html.EditorFor(model => model.Department.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(model => model.Department.Name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                <div class="col-md-7 col-sm-7 col-xs-12">
+                                    @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(model => model.EmailId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                <div class="col-md-7 col-sm-7 col-xs-12">
+                                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.EmailNotifications, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                <div class="col-md-1 col-sm-1 col-xs-6">
+                                    @Html.CheckBoxFor(model => model.EmailNotifications, htmlAttributes: new { @class = "form-control js-switch" })
+                                    @Html.ValidationMessageFor(model => model.EmailNotifications, "", new { @class = "text-danger" })
+                                </div>
+                                @Html.LabelFor(model => model.NotificationsInSystem, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                <div class="col-md-4 col-sm-4 col-xs-6">
+                                    @Html.CheckBoxFor(model => model.NotificationsInSystem, htmlAttributes: new { @class = "form-control js-switch" })
+                                    @Html.ValidationMessageFor(model => model.NotificationsInSystem, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                <div class="col-md-7 col-sm-7 col-xs-12">
+                                    @*@Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })*@
+                                    @Html.TextBoxFor(model => model.Password, htmlAttributes: new { @class = "form-control", type = "Password" })
+                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Photo, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                <div class="col-md-7 col-sm-7 col-xs-12">
+                                    @Html.TextBoxFor(m => m.httpFile, htmlAttributes: new { @class = "control-label", type = "file", @id = "flPhoto", name = "httpFile" })
+
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    Width: <label id="lblWidth">200</label>
+                                                    Height: <label id="lblHeight">200</label>
+                                                </td>
+                                                @*<td>
+                                                    <a href="#" id="hlcropImage" style="vertical-align:top;">Crop Image</a>
+                                                </td>*@
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div style="height:400px; width:400px; overflow:auto;">
+                                                        <img id="imgEmpPhoto" src="" alt="">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <canvas id="canvas" height="5" width="5" style="vertical-align:top;"></canvas>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                @*<p>
+                                        <img id="imgCropped" src="#" style="display:none;">
+                                    </p>*@
+                                @Html.EditorFor(model => model.CroppedFile, new { htmlAttributes = new { @class = "form-control", @id = "avatarCropped",@type= "hidden" } })
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-6">
+                                    <button type="button" id="btnUserProfile" class="btn btn-info">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div><br /></div>
+
+
+<script>
+
+    var initial = $("").val();
+    $("#First_Name,#Last_Name").focusout(function () {
+        {
+            var firstname = $("#First_Name").val();
+            var lastname = $("#Last_Name").val();
+            if (firstname != "" && lastname != "") {
+                $("#Initials").val(firstname.substr(0, 1).toUpperCase() + '' + lastname.substr(0, 1).toUpperCase())
+            }
+            else { $("#Initials").val(""); }
+        }
+    });
+
+
+
+    var imageCropWidth = 0;
+    var imageCropHeight = 0;
+    var cropPointX = 0;
+    var cropPointY = 0;
+    var jcropApi;
+
+
+    //$("#hlcropImage").on("click", function (e) {
+
+    //    /*
+    //    The event.preventDefault() method stops the default action of
+    //    an element from happening. For example: Prevent a submit button
+    //    from submitting a form. Prevent a link from following the URL
+    //    */
+
+    //    e.preventDefault();
+    //    cropImage();
+    //});
+
+    $("#canvas").hide();
+
+    function initCrop() {
+        $('#imgEmpPhoto').Jcrop({
+            onChange: setCoordsAndImgSize,
+            aspectRatio: 1, // 1 means will be same for height and weight
+            onSelect: setCoordsAndImgSize
+        }, function () { jcropApi = this; });
+
+        //$(".jcrop-tracker").on("mouseup", function (e) {
+        //    e.preventDefault();
+        //    cropImage();
+        $(".jcrop-tracker").mouseup(function (e) {
+            e.preventDefault();
+            cropImage();
+        });
+    }
+
+    function showCoordinate() {
+        $("#lblWidth").text(imageCropWidth + "px");
+        $("#lblHeight").text(imageCropHeight + "px");
+    }
+
+    function setCoordsAndImgSize(e) {
+        imageCropWidth = e.w;
+        imageCropHeight = e.h;
+
+        cropPointX = e.x;
+        cropPointY = e.y;
+
+        $("#lblWidth").text(imageCropWidth + "px");
+        $("#lblHeight").text(imageCropHeight + "px");
+    }
+
+    function cropImage() {
+
+        if (imageCropWidth == 0 && imageCropHeight == 0) {
+            alert("Please select crop area.");
+            return;
+        }
+
+        var img = $("#imgEmpPhoto").attr("src");
+
+        /*Show cropped image*/
+        showCroppedImage();
+    }
+
+    function showCroppedImage() {
+        var x1 = cropPointX;
+        var y1 = cropPointY;
+
+        var width = imageCropWidth;
+        var height = imageCropHeight;
+        var canvas = $("#canvas")[0];
+        var context = canvas.getContext('2d');
+        var img = new Image();
+        img.onload = function () {
+            canvas.height = height;
+            canvas.width = width;
+            context.drawImage(img, x1, y1, width, height, 0, 0, width, height);
+            $('#avatarCropped').val(canvas.toDataURL());
+        };
+        img.src = $('#imgEmpPhoto').attr("src");
+    }
+
+    function readFile(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            /*Destroy jcrop initialization other wise it will hold it previous image in img tag*/
+            if (jcropApi != null) {
+                jcropApi.destroy();
+            }
+            reader.onload = function (e) {
+                $('#imgEmpPhoto').attr('src', "");
+                var img = $('#imgEmpPhoto').attr('src', e.target.result);
+
+                /*Current uploaded image size*/
+                var width = img[0].height;
+                var height = img[0].width;
+                $("#lblWidth").text(width + "px");
+                $("#lblHeight").text(height + "px");
+
+                //InitCrop must call here otherwise it will not work
+                initCrop();
+
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $('#flPhoto').change(function () {
+        readFile(this);
+        //initCrop();
+    });
+
+
+    $("#btnUserProfile").click(function () {
+        var valid = $('#frmUserProfile').valid();
+
+        if (valid) {
+            var modeldata = new FormData($('#frmUserProfile').get(0));
+            var Notify = MessageBoxOK_Cancel("Do You Want To Save Changes ?");
+            Notify.get().on('pnotify.confirm', function () {
+                $.ajax(
+                {
+                    url: '/Users/UserProfile',
+                    type: 'Post',
+                    data: modeldata,
+                    datatype: 'Json',
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (res) {
+                        if (res.Result) {
+                            $('#btnUserProfile').hide('slowly')
+                            var notify = MessageBoxOk(res.Message);
+                            notify.get().on('pnotify.confirm', function () {
+                                window.location.href = '/Dashboard/Dashboard';
+                            })
+                        }
+                    }
+                });
+            });
+        }
+    });
+</script>

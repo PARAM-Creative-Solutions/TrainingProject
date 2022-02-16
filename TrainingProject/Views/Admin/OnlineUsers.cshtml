@@ -1,0 +1,88 @@
+﻿@model IEnumerable<TrainingProjectDataLayer.DataLayer.Entities.DAL.UserLog>
+
+@{
+    ViewBag.Title = "OnlineUsers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/OptionList/OptionButton.css" rel="stylesheet" />
+<h2><br /></h2>
+<div class="">
+    <h2><br /></h2>
+    <div class="panel panel-info" id="PanelSalesOrderDetails">
+        <div class="panel-heading">
+            <span id="SpanExpander" class="pull-left clickable">
+                <i id="ILabel" class="glyphicon glyphicon-chevron-up" style="font-size:large;"></i>
+            </span><b class="collapse-link">Online Users</b>
+        </div>
+        <div class="panel-body" style="display: block;">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="form-horizontal form-label-left input_mask" novalidate="novalidate">
+                    <div class="row">
+                        <table id="OnlineUserTable" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline" cellspacing="0" role="grid" aria-describedby="datatable-responsive_info" style="width: 100%;">
+                            <thead>
+                                <tr role="row">
+                                    <th>@Html.DisplayNameFor(u=>u.User)</th>
+                                    <th>@Html.DisplayNameFor(u=>u.User.Department.Name)</th>
+                                    <th>@Html.DisplayNameFor(u=>u.LoggedInTime)</th>
+                                    <th>@Html.DisplayNameFor(u=>u.LastAcessedOn)</th>
+                                    <th>@Html.DisplayNameFor(u => u.IPAddress)</th>
+                                    <th class="all">Options</th>
+                                </tr>
+                            </thead>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td> @string.Concat(item.User.FirstName, " ", item.User.LastName)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.User.Department.Name)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.LoggedInTime)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.LastAcessedOn)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.IPAddress)</td>
+                                    <td class="all">
+                                        <div>
+                                            <a onclick="Logout(@item.UserId)" class="btn btn-xs optionButton"><i class="fa fa-sign-out blue" data-toggle="tooltip" title="" data-placement="top" data-original-title="Logout"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div><br></div>
+<script>
+    $(document).ready(function () {
+        $("#OnlineUserTable").DataTable({
+            dom: 'frtip',
+        });
+    });
+    function Logout(id)
+    {
+        var Notify = MessageBoxOK_Cancel("Do You Want To Logout User ?")
+        Notify.get().on('pnotify.confirm', function () {
+            $.ajax(
+            {
+                url: '@Url.Action("LogoutUser", "Admin")',
+                type: 'Get',
+                data: { Id: id },
+                datatype: 'Json',
+                success: function (res)
+                {
+                    if (res.Result)
+                    {
+                        var notify = MessageBoxOk(res.Message);
+                        notify.get().on('pnotify.confirm', function ()
+                        {
+                            //window.location.href = '/Admin/Login';
+                            location.reload();
+                        });
+                    }
+                }
+            });
+        })
+    };
+
+</script>

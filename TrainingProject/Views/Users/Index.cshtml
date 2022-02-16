@@ -1,0 +1,744 @@
+﻿@model IEnumerable<TrainingProjectDataLayer.DataLayer.Entities.DAL.User>
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@*@Scripts.Render("~/bundles/jqueryValidation")*@
+
+
+<!-- #region HTML CODE -->
+
+<p><br /><br /><br /></p>
+<div class="">
+    <div class="panel panel-info" id="pSo">
+        <div class="panel-heading">
+            <span id="SpanExpander" class="pull-left clickable">
+                <i id="ILabel" class="glyphicon glyphicon-chevron-up" style="font-size:large;"></i>
+            </span><b class="collapse-link"> Users</b>
+        </div>
+        <div class="panel-body" style="display: block;">
+            <!-- #region CREATE NEW USER BUTTON -->
+
+            <div class="col-sm-3 form-group has-feedback" style="width:244px;">
+                <button type="button" class="form-control has-feedback-left btnCreate" style="color:#31708f;border-radius:4px;border-color:#31708f;" id="inputSuccess2"> Create New User</button>
+                <span class="fa fa-user form-control-feedback left" style="color:#31708f;" aria-hidden="true"></span>
+            </div>
+
+            <!-- #endregion -->
+
+            <div class="col-sm-12">
+                <div style="width: 100%; padding-left: -10px;">
+                    <div class="table-responsive">
+                        <table class="SalesOrderDatatable table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline" cellspacing="0" role="grid" aria-describedby="datatable-responsive_info" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>@Html.DisplayNameFor(model => model.UserName)</th>
+                               
+                                    <th>@Html.DisplayNameFor(model => model.FirstName)</th>
+                                    <th>@Html.DisplayNameFor(model => model.MiddleName)</th>
+                                    <th>@Html.DisplayNameFor(model => model.LastName)</th>
+                                    @*<th>@Html.DisplayNameFor(model => model.SAPSystemName)</th>*@
+                                    <th>@Html.DisplayNameFor(model => model.UserStatus)</th>
+                                    <th>@Html.DisplayNameFor(model => model.Department.Name)</th>
+                                    <th>@Html.DisplayNameFor(model => model.EmailId)</th>
+                                    <th>@Html.DisplayNameFor(model => model.Init)</th>
+                                    <th>@Html.DisplayNameFor(model => model.CreatedOn)</th>
+                                    <th>@Html.DisplayNameFor(model => model.LastModifiedOn)</th>
+                                    <th>@Html.DisplayNameFor(model => model.UserRoles)</th>
+                                    <th>@Html.DisplayNameFor(model => model.Password)</th>
+                                    <th>Logged In Time</th>
+                                    <th>Logged Out Time</th>
+                                    <th>Last Accessed Time</th>
+                                    <th>IP Address</th>
+                                    <th class="all">Options</th>
+                                </tr>
+                            </thead>
+                            @foreach (var item in Model)
+                            {
+                                @Html.HiddenFor(modelItem => item.UserId)
+                                @*@Html.HiddenFor(modelItem => item.UserRoles)*@
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.UserName)</td>
+                                    
+                                    <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.MiddleName)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                                    @*<td>@Html.DisplayFor(modelItem => item.SAPSystemName)</td>*@
+                                    @switch (item.UserStatus)
+                                    {
+                                        case 1:
+                                            <td><span class="btn btn-success btn-xs">@Html.DisplayFor(modelItem => item.UserStatu.Status)</span></td>
+                                            break;
+                                        case 2:
+                                            <td><span class="btn btn-primary btn-xs">@Html.DisplayFor(modelItem => item.UserStatu.Status)</span></td>
+                                            break;
+                                        case 3:
+                                            <td><span class="btn btn-danger btn-xs">@Html.DisplayFor(modelItem => item.UserStatu.Status)</span></td>
+                                            break;
+                                        case 4:
+                                            <td><span class="btn btn-warning btn-xs">@Html.DisplayFor(modelItem => item.UserStatu.Status)</span></td>
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                    @*<td><span class="btn btn-success btn-xs">@Html.DisplayFor(modelItem => item.AllStatu.Status)</span></td>*@
+                                    <td>@Html.DisplayFor(modelItem => item.Department.Name)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.EmailId)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Init)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.CreatedOn)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.LastModifiedOn)</td>
+                                    <td> @string.Join(",", item.UserRoles.Select(r => r.Role.RoleName).ToList())</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Password)</td>
+                                    @if (item.UserLogs.FirstOrDefault() != null)
+                                    {
+                                        <td>@item.UserLogs.FirstOrDefault().LoggedInTime</td>
+                                        <td>@item.UserLogs.FirstOrDefault().LoggedOutTime</td>
+                                        <td>@item.UserLogs.FirstOrDefault().LastAcessedOn</td>
+                                        <td>@item.UserLogs.FirstOrDefault().IPAddress</td>
+                                    }
+                                    else
+                                    {
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    }
+                                    <td class="all">
+                                        <div>
+                                            <a UserId='@item.UserId' class="btn btn-xs optionButton btnEdit"><i class="fa fa-pencil blue" data-toggle="tooltip" title="" data-placement="top" data-original-title="Edit User"></i></a>
+                                            <a UserId='@item.UserId' class="btn btn-xs optionButton btnDetails"><i class="fa fa-file-text-o green" data-toggle="tooltip" title="" data-placement="top" data-original-title="Details"></i></a>
+                                            @if (item.UserStatus==1)
+                                            {
+                                            <a onclick="InActiveUser(@item.UserId)" class="btn btn-xs optionButton"><i class="fa fa-bookmark red" data-toggle="tooltip" title="" data-placement="top" data-original-title="Inactive"></i></a>}
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div><br /></div>
+        <!-- #endregion -->
+                                <!-- #region MODAL FOR CREATE NEW USER -->
+                                <div class="modal fade " tabindex="-1" id="UserCreateModal" role="dialog" aria-hidden="true" style="display: none;">
+                                    <div class="modal-dialog modal-mg">
+                                        <div class="modal-content" id="User">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                                <h4 class="modal-title" id="myModal">Create New User</h4>
+                                            </div>
+                                            <div class="modal-body" id="UserCreateModalContent">
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-success Ok" id="btnOkCreate">OK</button>
+                                                <button type="button" class="btn btn-default" id=close data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- #endregion -->
+                                <!-- #region MODAL FOR EDIT USER -->
+                                <div class="modal fade " tabindex="-1" id="UserEditModal" role="dialog" aria-hidden="true" style="display: none;">
+                                    <div class="modal-dialog modal-mg">
+                                        <div class="modal-content" id="User">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                                <h4 class="modal-title" id="myModal">Edit User</h4>
+                                            </div>
+                                            <div class="modal-body" id="UserEditModalContent">
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-success Ok" id="btnOkEdit">OK</button>
+                                                <button type="button" class="btn btn-default" id=close data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- #endregion -->
+                                <!-- #region MODAL FOR USER DETAILS -->
+                                <div class="modal fade " tabindex="-1" id="UserDetailsModal" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-mg">
+        <div class="modal-content" id="User">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModal">User Details</h4>
+            </div>
+            <div class="modal-body" id="UserDetailsModalContent">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id=close data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+                                <!-- #endregion -->
+                                <!-- #region Script Create Modal -->
+                                <script type="text/javascript">
+                                    $(".btnCreate").click(function () {
+                                        var options =
+                                        {
+                                            "backdrop": "static",
+                                            keyboard: true
+                                        };
+                                        $.ajax(
+                                               {
+                                                   url: '/Users/Create',
+                                                   type: "GET",
+                                                   contentType: "application/json; charset=utf-8",
+                                                   datatype: "html",
+                                                   cache: false,
+                                                   success: function (data)
+                                                   {
+                                                       if (data.Result)
+                                                       {
+                                                           
+                                                           var notify = InformationBoxOK_Cancel(data.Message);
+                                                       }
+                                                       else
+                                                       {
+                                                           $('#UserDetailsModalContent').html("");
+                                                           $('#UserEditModalContent').html("");
+                                                           $('#UserCreateModalContent').html(data);
+                                                           $('#UserCreateModal').modal(options);
+                                                           $('#UserCreateModal').modal('show');
+                                                       }
+                                                   }
+                                               });
+                                    });
+
+                                    $("#btnOkCreate").click(function () {
+
+                                        var valid = $('#frmCreateUser').valid();
+                                        if (valid) {
+                                            var vendorListId = $('#VendorListId').text();
+                                            var modeldata = $('#frmCreateUser').serialize();
+                                            var deptname = $("#DeptId :selected").text();
+                                            var SelectedRoles = $("#bootstrap-duallistbox-selected-list_SelectedRoles").text();
+                                            if (deptname == "SUPPLIER") {
+                                                if (vendorListId != '') {
+                                                    submit();
+                                                }
+                                                else {
+                                                    var notify = InformationBoxOK_Cancel("Please Select Vendor List");
+                                                }
+                                            }
+                                            else {
+                                                if (SelectedRoles != '') {
+                                                    submit();
+                                                }
+                                                else {
+                                                    var notify = InformationBoxOK_Cancel("Please Select User Roles");
+                                                }
+
+                                            }
+                                        }
+
+                                    });
+                                    function submit() {
+                                        var a = document.getElementById("EmailId").value;
+                                        if (a == "") {
+                                            MessageBoxError("Please Enter at least one Valid EmailId");
+                                            
+                                        }
+                                        else {
+                                        var Notify = MessageBoxOK_Cancel("Do you Want To Create New User ?");
+                                        var modeldata = $('#frmCreateUser').serialize();
+                                        Notify.get().on('pnotify.confirm', function () {
+                                            $('.modal').modal('hide');
+                                            $.ajax(
+                                                {
+                                                    url: '/Users/Create',
+                                                    type: 'POST',
+                                                    data: modeldata,
+                                                    datatype: 'Json',
+                                                    success: function (res) {
+                                                        if (res.Result) {
+                                                            var notify = MessageBoxOk(res.Message);
+                                                            notify.get().on('pnotify.confirm', function () {
+                                                                window.location.reload();
+                                                            })
+                                                        }
+                                                        else {
+                                                            var notify = MessageBoxError(res.Message);
+                                                            notify.get().on('pnotify.confirm', function () {
+                                                                window.location.reload();
+                                                            })
+                                                        }
+                                                    }
+                                                });
+                                        });
+                                    }
+                                    }
+                                </script>
+                                <!-- #endregion -->
+                                <!-- #region Script Edit Modal -->
+                                <script type="text/javascript">
+
+                                    $(".btnEdit").click(function () {
+                                        var options =
+                                        {
+                                            "backdrop": "static",
+                                            keyboard: true
+                                        };
+                                        var _UserID = $(this).attr('UserId');
+                                        $.ajax(
+                                               {
+                                                   url: '/Users/Edit',
+                                                   type: "GET",
+                                                   contentType: "application/json; charset=utf-8",
+                                                   data: { id: _UserID },
+                                                   datatype: "html",
+                                                   cache: false,
+                                                   success: function (data)
+                                                   {
+                                                       $('#UserCreateModalContent').html("");
+                                                       $('#UserDetailsModalContent').html("");
+                                                           $('#UserEditModalContent').html(data);
+                                                           $('#UserEditModal').modal(options);
+                                                           $('#UserEditModal').modal('show');
+                                                   }
+                                               });
+                                    });
+
+                                    $("#btnOkEdit").click(function ()
+                                    {
+                                        var valid = $('#frmEditUser').valid();
+                                        if (valid) 
+                                        {
+                                            var SelectedRoles = $("#bootstrap-duallistbox-selected-list_SelectedRoles").text();
+                                                if (SelectedRoles != '') 
+                                                {
+                                                   submitEdited();
+                                                }
+                                                else
+                                                {
+                                                   var notify = InformationBoxOK_Cancel("Please Select User Roles");
+                                                }
+                                        }
+                                    });
+
+                                    function submitEdited() {
+                                        var a = document.getElementById("EmailId").value;
+                                        if (a == "") {
+                                            MessageBoxError("Please Enter at least one Valid EmailId");
+
+                                        }
+                                        else {
+                                            var Notify = MessageBoxOK_Cancel("Do You Want To Edit User ?");
+                                            var modeldata = $('#frmEditUser').serialize();
+                                            Notify.get().on('pnotify.confirm', function () {
+                                                $('.modal').modal('hide');
+                                                $.ajax(
+                                                    {
+                                                        url: '/Users/Edit',
+                                                        type: 'POST',
+                                                        data: modeldata,
+                                                        datatype: 'Json',
+                                                        success: function (res) {
+                                                            if (res.Result) {
+                                                                var notify = MessageBoxOk(res.Message);
+                                                                notify.get().on('pnotify.confirm', function () {
+                                                                    window.location.reload();
+                                                                })
+                                                            }
+                                                            else {
+                                                                var notify = MessageBoxError(res.Message);
+                                                                notify.get().on('pnotify.confirm', function () {
+                                                                    window.location.reload();
+                                                                })
+                                                            }
+                                                        }
+
+                                                    });
+                                            });
+                                        }
+                                    }
+                                </script>
+                                <!-- #endregion -->
+                                <!-- #region Script Details Modal -->
+                                <script type="text/javascript">
+                                    $(".btnDetails").click(function () {
+                                        var options =
+                                        {
+                                            "backdrop": "static",
+                                            keyboard: true
+                                        };
+                                        var _UserID = $(this).attr('UserId');
+                                        $.ajax(
+                                               {
+                                                   url: '/Users/Details',
+                                                   type: "GET",
+                                                   contentType: "application/json; charset=utf-8",
+                                                   data: { id: _UserID },
+                                                   datatype: "html",
+                                                   cache: false,
+                                                   success: function (data) {
+                                                       $('#UserCreateModalContent').html("");
+                                                       $('#UserEditModalContent').html("");
+                                                       $('#UserDetailsModalContent').html(data);
+                                                       $('#UserDetailsModal').modal(options);
+                                                       $('#UserDetailsModal').modal('show');
+                                                   }
+                                               });
+                                    });
+                                </script>
+                                <!-- #endregion -->
+                                <!-- #region Script Delete User -->
+                                <script type="text/javascript">
+                                    function DeleteUser(_UserId) {
+
+                                        new PNotify({
+                                            title: 'Confirmation Needed',
+                                            text: 'Do You Want To Delete User ?',
+                                            icon: 'glyphicon glyphicon-question-sign',
+                                            hide: false,
+                                            confirm: {
+                                                confirm: true
+                                            },
+                                            buttons: {
+                                                closer: false,
+                                                sticker: false
+                                            },
+                                            history: {
+                                                history: false
+                                            },
+                                            addclass: 'stack-modal',
+                                            stack: { 'dir1': 'down', 'dir2': 'right', 'modal': true }
+                                        }).get().on('pnotify.confirm', function () {
+
+                                            $.ajax({
+                                                url: '/Users/Delete',
+                                                type: 'POST',
+                                                data: { id: _UserId },
+                                                success: function (data) {
+                                                    if (data.success == true) {
+                                                        new PNotify({
+                                                            title: 'Success!',
+                                                            text: data.result,
+                                                            type: 'success',
+                                                            icon: 'glyphicon glyphicon-info-sign',
+                                                            addclass: 'stack-modal',
+                                                            stack: { 'dir1': 'down', 'dir2': 'right', 'modal': true },
+                                                            hide: false,
+                                                            confirm: {
+                                                                confirm: true,
+                                                                buttons: [{
+                                                                    text: 'Ok',
+                                                                    addClass: 'btn-primary',
+                                                                    click: function (notice) {
+
+                                                                        window.location.href = '/Users/Index';
+                                                                        notice.remove();
+                                                                    }
+                                                                },
+                                                                null]
+                                                            },
+                                                            buttons: {
+                                                                closer: false,
+                                                                sticker: false
+                                                            },
+                                                            history: {
+                                                                history: false
+                                                            }
+                                                        });
+                                                    }
+                                                    else {
+                                                        new PNotify({
+                                                            title: 'Oh No!',
+                                                            text: 'Not connected to server',
+                                                            type: 'error',
+                                                            addclass: "stack-modal",
+                                                            stack: { "dir1": "down", "dir2": "left", 'modal': true, "overlay_close": true },
+                                                        });
+                                                    }
+                                                },
+                                                error: function (data) {
+                                                    new PNotify({
+                                                        title: 'Oh No!',
+                                                        text: 'Not connected to server',
+                                                        type: 'error',
+                                                        addclass: "stack-modal",
+                                                        stack: { "dir1": "down", "dir2": "left", 'modal': true, "overlay_close": true },
+                                                    });
+                                                }
+                                            });
+                                        }).on('pnotify.cancel', function () {
+                                            //alert('Oh ok. Chicken, I see.');
+                                        });
+                                    }
+</script>
+
+<script type="text/javascript">
+                                    function DeleteUser(_UserId) {
+
+                                        new PNotify({
+                                            title: 'Confirmation Needed',
+                                            text: 'Do You Want To Delete User ?',
+                                            icon: 'glyphicon glyphicon-question-sign',
+                                            hide: false,
+                                            confirm: {
+                                                confirm: true
+                                            },
+                                            buttons: {
+                                                closer: false,
+                                                sticker: false
+                                            },
+                                            history: {
+                                                history: false
+                                            },
+                                            addclass: 'stack-modal',
+                                            stack: { 'dir1': 'down', 'dir2': 'right', 'modal': true }
+                                        }).get().on('pnotify.confirm', function () {
+
+                                            $.ajax({
+                                                url: '/Users/Delete',
+                                                type: 'POST',
+                                                data: { id: _UserId },
+                                                success: function (data) {
+                                                    if (data.success == true) {
+                                                        new PNotify({
+                                                            title: 'Success!',
+                                                            text: data.result,
+                                                            type: 'success',
+                                                            icon: 'glyphicon glyphicon-info-sign',
+                                                            addclass: 'stack-modal',
+                                                            stack: { 'dir1': 'down', 'dir2': 'right', 'modal': true },
+                                                            hide: false,
+                                                            confirm: {
+                                                                confirm: true,
+                                                                buttons: [{
+                                                                    text: 'Ok',
+                                                                    addClass: 'btn-primary',
+                                                                    click: function (notice) {
+
+                                                                        window.location.href = '/Users/Index';
+                                                                        notice.remove();
+                                                                    }
+                                                                },
+                                                                null]
+                                                            },
+                                                            buttons: {
+                                                                closer: false,
+                                                                sticker: false
+                                                            },
+                                                            history: {
+                                                                history: false
+                                                            }
+                                                        });
+                                                    }
+                                                    else {
+                                                        new PNotify({
+                                                            title: 'Oh No!',
+                                                            text: 'Not connected to server',
+                                                            type: 'error',
+                                                            addclass: "stack-modal",
+                                                            stack: { "dir1": "down", "dir2": "left", 'modal': true, "overlay_close": true },
+                                                        });
+                                                    }
+                                                },
+                                                error: function (data) {
+                                                    new PNotify({
+                                                        title: 'Oh No!',
+                                                        text: 'Not connected to server',
+                                                        type: 'error',
+                                                        addclass: "stack-modal",
+                                                        stack: { "dir1": "down", "dir2": "left", 'modal': true, "overlay_close": true },
+                                                    });
+                                                }
+                                            });
+                                        }).on('pnotify.cancel', function () {
+                                            //alert('Oh ok. Chicken, I see.');
+                                        });
+                                    }
+</script>
+                                <!-- #endregion -->
+
+
+ <!-- #region Script INACTIVE User -->
+<script type="text/javascript">
+    function InActiveUser(_UserId) {
+
+                                        new PNotify({
+                                            title: 'Confirmation Needed',
+                                            text: 'Do You Want To Update User ?',
+                                            icon: 'glyphicon glyphicon-question-sign',
+                                            hide: false,
+                                            confirm: {
+                                                confirm: true
+                                            },
+                                            buttons: {
+                                                closer: false,
+                                                sticker: false
+                                            },
+                                            history: {
+                                                history: false
+                                            },
+                                            addclass: 'stack-modal',
+                                            stack: { 'dir1': 'down', 'dir2': 'right', 'modal': true }
+                                        }).get().on('pnotify.confirm', function () {
+
+                                            $.ajax({
+                                                url: '/Users/InActive',
+                                                type: 'POST',
+                                                data: { id: _UserId },
+                                                success: function (data) {
+                                                    if (data.success == true) {
+                                                        new PNotify({
+                                                            title: 'Success!',
+                                                            text: data.result,
+                                                            type: 'success',
+                                                            icon: 'glyphicon glyphicon-info-sign',
+                                                            addclass: 'stack-modal',
+                                                            stack: { 'dir1': 'down', 'dir2': 'right', 'modal': true },
+                                                            hide: false,
+                                                            confirm: {
+                                                                confirm: true,
+                                                                buttons: [{
+                                                                    text: 'Ok',
+                                                                    addClass: 'btn-primary',
+                                                                    click: function (notice) {
+
+                                                                        window.location.href = '/Users/Index';
+                                                                        notice.remove();
+                                                                    }
+                                                                },
+                                                                null]
+                                                            },
+                                                            buttons: {
+                                                                closer: false,
+                                                                sticker: false
+                                                            },
+                                                            history: {
+                                                                history: false
+                                                            }
+                                                        });
+                                                    }
+                                                    else {
+                                                        new PNotify({
+                                                            title: 'Oh No!',
+                                                            text: 'Not connected to server',
+                                                            type: 'error',
+                                                            addclass: "stack-modal",
+                                                            stack: { "dir1": "down", "dir2": "left", 'modal': true, "overlay_close": true },
+                                                        });
+                                                    }
+                                                },
+                                                error: function (data) {
+                                                    new PNotify({
+                                                        title: 'Oh No!',
+                                                        text: 'Not connected to server',
+                                                        type: 'error',
+                                                        addclass: "stack-modal",
+                                                        stack: { "dir1": "down", "dir2": "left", 'modal': true, "overlay_close": true },
+                                                    });
+                                                }
+                                            });
+                                        }).on('pnotify.cancel', function () {
+                                            //alert('Oh ok. Chicken, I see.');
+                                        });
+                                    }
+</script>
+
+<script type="text/javascript">
+                                    function InActiveUser(_UserId) {
+
+                                        new PNotify({
+                                            title: 'Confirmation Needed',
+                                            text: 'Do You Want To Update User ?',
+                                            icon: 'glyphicon glyphicon-question-sign',
+                                            hide: false,
+                                            confirm: {
+                                                confirm: true
+                                            },
+                                            buttons: {
+                                                closer: false,
+                                                sticker: false
+                                            },
+                                            history: {
+                                                history: false
+                                            },
+                                            addclass: 'stack-modal',
+                                            stack: { 'dir1': 'down', 'dir2': 'right', 'modal': true }
+                                        }).get().on('pnotify.confirm', function () {
+
+                                            $.ajax({
+                                                url: '/Users/InActive',
+                                                type: 'POST',
+                                                data: { id: _UserId },
+                                                success: function (data) {
+                                                    if (data.success == true) {
+                                                        new PNotify({
+                                                            title: 'Success!',
+                                                            text: data.result,
+                                                            type: 'success',
+                                                            icon: 'glyphicon glyphicon-info-sign',
+                                                            addclass: 'stack-modal',
+                                                            stack: { 'dir1': 'down', 'dir2': 'right', 'modal': true },
+                                                            hide: false,
+                                                            confirm: {
+                                                                confirm: true,
+                                                                buttons: [{
+                                                                    text: 'Ok',
+                                                                    addClass: 'btn-primary',
+                                                                    click: function (notice) {
+
+                                                                        window.location.href = '/Users/Index';
+                                                                        notice.remove();
+                                                                    }
+                                                                },
+                                                                null]
+                                                            },
+                                                            buttons: {
+                                                                closer: false,
+                                                                sticker: false
+                                                            },
+                                                            history: {
+                                                                history: false
+                                                            }
+                                                        });
+                                                    }
+                                                    else {
+                                                        new PNotify({
+                                                            title: 'Oh No!',
+                                                            text: 'Not connected to server',
+                                                            type: 'error',
+                                                            addclass: "stack-modal",
+                                                            stack: { "dir1": "down", "dir2": "left", 'modal': true, "overlay_close": true },
+                                                        });
+                                                    }
+                                                },
+                                                error: function (data) {
+                                                    new PNotify({
+                                                        title: 'Oh No!',
+                                                        text: 'Not connected to server',
+                                                        type: 'error',
+                                                        addclass: "stack-modal",
+                                                        stack: { "dir1": "down", "dir2": "left", 'modal': true, "overlay_close": true },
+                                                    });
+                                                }
+                                            });
+                                        }).on('pnotify.cancel', function () {
+                                            //alert('Oh ok. Chicken, I see.');
+                                        });
+                                    }
+</script>
+<!-- #endregion -->

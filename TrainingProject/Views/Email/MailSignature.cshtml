@@ -1,0 +1,27 @@
+﻿
+@model TrainingProject.Models.MailManager.MailData
+@{ 
+    var user = HttpContext.Current.User as TrainingProject.Security.CustomPrincipal;
+    string UserName = string.Empty;
+    if (user != null)
+    {
+        UserName = user.FullName;
+    }
+}
+
+    @Html.Label("Best Regards,")
+<br />
+<br/>
+    @Html.DisplayFor(model => UserName) 
+<br/>
+PARAM Creative Solutions
+<br/>
+Mumbai-Pune Road, Pimpri, Pune - 411 018. INDIA.
+    @*@Html.Label("Mumbai-Pune Road, Pimpri, Pune - 411 018. INDIA.")*@
+<br/>
+Phone(Direct) : +91 20 27101373   | (Board) : +91 20 2710 1000 |
+    @*@Html.Label("Phone(Direct) : +91 20 27101373 | (Board) : +91 20 2710 1000 |")*@
+<br/>
+eMail : @Model.ReplyBackTo| Website : www.ksbindia.co.in
+    @*@Html.Label("eMail : Yashodhan.Samak@ksb.com| Website : www.ksb-mil.com")*@
+<br/>

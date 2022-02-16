@@ -1,0 +1,413 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @*current logged in user details*@
+    @{
+        var Photo = string.Empty;
+        Photo = ViewBag.UserPhoto == null ? "~/Images/img.jpg" : ViewBag.UserPhoto;
+    }
+    <title>TrainingProject</title>
+    <!-- Bootstrap -->
+    @Styles.Render("~/Content/bootstrapCSS")
+    <!-- Font Awesome -->
+    @Styles.Render("~/Content/fontsCSS")
+    <!-- NProgress -->
+    @Styles.Render("~/Content/nprogressCSS")
+    <!-- FullCalendar -->
+    @Styles.Render("~/Content/fullcalendarCSS")
+    <!-- jQuery Smart Wizard -->
+    @Styles.Render("~/Content/jquerySmartWizardCSS")
+    <!-- mCustomScrollbar -->
+    @Styles.Render("~/Content/mCustomScrollbarCSS")
+    <!-- Pnotify -->
+    @Styles.Render("~/Content/cssPNotify")
+    <!-- Option Buttons -->
+    @Styles.Render("~/Content/cssOptionButtons")
+    <!-- iCheck -->
+    <link href="~/Libs/Gentelella/css/green.css" rel="stylesheet" />
+    <link href="~/Libs/Gentelella/css/switchery.min.css" rel="stylesheet">
+    <!-- Datatables -->
+    @Styles.Render("~/Content/DataTableCSS")
+    <!-- Custom Theme Style -->
+    @Styles.Render("~/Content/customThemeCSS")
+    <!-- jQuery -->
+    @Scripts.Render("~/bundles/jquery")
+
+    <link href="~/Content/lableasterisk.css" rel="stylesheet" />
+</head>
+<body class="nav-md footer_fixed" >
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col menu_fixed">
+                <div class="left_col scroll-view">
+                    @*<img style="width:100%;" height="50px" src="~/Images/Login/ACG.gif" />*@
+                    @*<div class="navbar nav_title" style="border: 0;">
+                            <a href="/Account/Login" class="site_title"><span style="color:red;font:italic">ACG</span> FILMS & FOILS</a>
+                        </div>*@
+                    <div class="navbar nav_title" style="border-bottom: solid; border-bottom-width:thin">
+                        <a href="/Account/Login" class="site_title"><i class="fa fa-th faa-pulse animated"></i><span> Training Project</span></a>
+                    </div>
+                    <div class="clearfix"></div>
+                    <!-- menu profile quick info -->
+                    <div class="profile clearfix" style="border-bottom:none; border-bottom-width:thin">
+                        <div class="profile_pic">
+                            @*<img src="~/Images/img.jpg" alt="..." class="img-circle profile_img">*@
+                       <img src=@Url.Content(Photo) alt="..." class="img-circle profile_img" />
+                        </div>
+                        <div class="profile_info">
+                            @*<span>Welcome,</span>*@
+                            <h2>@User.FullName</h2>
+                            <span><a @*href="#"*@><i class="fa fa-circle green"></i> <span style="color:white;">Online</span></a></span>
+                        </div>
+                        @*<img style="width:50%; height: 40%;" src="~/Images/Login/ACG.gif" alt="..." class="center-block" />*@
+                        <div class="clearfix"></div>
+                    </div>
+                    <!-- /menu profile quick info -->
+                    <br />
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                            <h3>General</h3>
+                            <ul class="nav side-menu">
+
+                                <li>
+                                    <a href="/Dashboard/Dashboard"><i class="fa fa-dashboard"></i> Dashboard</a>
+                                </li>
+                              
+                               
+
+                                @if (User.IsWithRight(SystemEnums.Rights.ManageSystemMasterData))
+                                {
+                                    <li>
+                                        <a><i class="fa fa-database"></i> Manage Master Data <span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li>
+                                                <a>Manage Plants Data <span class="fa fa-chevron-down"></span></a>
+                                                <ul class="nav child_menu">
+                                                    <li><a href="/Plants/Index">Plants</a></li>
+                                                    <li><a href="/Plants/PlantAdminIndex">Plant Admins</a></li>
+                                                </ul>
+                                            </li>
+                                          
+                                            <li><a href="/Users/AllUserIndex">Users</a></li>
+                                            <li><a href="/Departments/Index">Departments</a></li>
+                                            <li><a href="/Roles/Index">Roles</a></li>
+                                            <li><a href="/Rights/Index">Rights</a></li>
+                                            <li><a href="/VendorList/Index">Vendor List </a></li>
+                                            <li><a href="/Report/Index">Report Type </a></li>
+                                            <li><a href="/Report/ReportsIndex">Generate Report</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="/Admin/OnlineUsers"><i class="fa fa-user"></i>Online Users</a></li>
+                                }
+
+                                @if (User.IsWithRight(SystemEnums.Rights.ManagePlantLevelMasterData))
+                                {
+                                    <li>
+                                        <a><i class="fa fa-database"></i> Manage Master Data <span class="fa fa-chevron-down"></span></a>
+           
+                                                                     <ul class="nav child_menu">
+                                            <li><a href="/Users/Index">Users</a></li>
+                                            <li><a href="/VendorList/Index">Vendor List </a></li>
+                                        </ul>
+                                    </li>
+                                  
+                                }
+                                @if (User.IsWithRight(SystemEnums.Rights.CreateInspectionCall))
+                                {
+                                    <li><a href="/TrainingProject/Create"><i class="fa fa-th"></i>Create Training Project</a></li>
+                                   
+                                }
+                                @*@if (User.IsWithRight(SystemEnums.Rights.ViewAllInspectionCallsOfPlant) || User.IsWithRight(SystemEnums.Rights.OnlyView))
+                                {
+                                    <li><a href="/TrainingProject/Index"><i class="fa fa-list"></i>Training Project</a></li>
+                                    
+                                }*@
+                                 @if (User.IsWithRight(SystemEnums.Rights.ViewReports))
+                                 {
+                                <li><a href="/Report/GenerateReport"><i class="fa fa-bar-chart"></i>Reports</a></li>
+                                 }
+                                @*<li>
+                                        <a><i class="fa fa-question-circle"></i> Help<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li class="current-page"><a href="/Account/UserManual?type=@SystemEnums.UserManualTypes.TSSHeadManual" target="_blank">TSS Head Manual</a></li>
+                                            <li class="current-page"><a href="/Account/UserManual?type=@SystemEnums.UserManualTypes.TSSUserManual" target="_blank">TSS User Manual</a></li>
+                                        </ul>
+                                </li>*@
+                                
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /sidebar menu -->
+                    <!-- /menu footer buttons -->
+                    <div class="sidebar-footer hidden-small">
+                        <a data-toggle="tooltip" data-placement="top" title="Settings">
+                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" data-placement="top" title="FullScreen" onclick="toggleFullScreen()">
+                            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" data-placement="top" title="Lock">
+                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" data-placement="top" title="Logout" href="/Account/Logout">
+                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                    <!-- /menu footer buttons -->
+                </div>
+            </div>
+            <!-- top navigation -->
+            <div class="top_nav">
+                <div class="nav_menu">
+                    <nav>
+                        <div class="nav toggle">
+                            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                        </div>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="">
+                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    <img src=@Url.Content(Photo) alt="">@User.FullName
+                                    <span class="fa fa-angle-down"></span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                    <li><a href="/Users/UserProfile">Profile</a></li>
+                                    @*<li>@Html.ActionLink("Profile", "UserProfile", "Users", new { Id = user.Id }, null)</li>*@
+                                    @*<li>@Html.ActionLink("Profile", "UserProfile", "Users")</li>*@
+                                    @*<li>
+                                            <a href="javascript:;">
+                                                <span class="badge bg-red pull-right">50%</span>
+                                                <span>Settings</span>
+                                            </a>
+                                        </li>*@
+                                    <li><a href="javascript:;">Help</a></li>
+                                    <li><a href="/Account/Logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                                </ul>
+                            </li>
+                            <li role="presentation" class="dropdown">
+                                <a href="javascript:;" class="dropdown-toggle info-number" @*data-toggle="dropdown"*@ aria-expanded="false">
+                                    <i class="fa fa-users" data-toggle="tooltip" title="" data-placement="bottom" data-original-title="No of Online Users"></i>
+                                    <span class="badge bg-green onlineUsersCount"></span>
+                                </a>
+                                <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                                    <li>
+                                        <a>
+                                            <span class="image"><img src="~/Images/img.jpg" alt="Profile Image" /></span>
+                                            <span>
+                                                <span>John Smith</span>
+                                                <span class="time">3 mins ago</span>
+                                            </span>
+                                            <span class="message">
+                                                Film festivals used to be do-or-die moments for movie makers. They were where...
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a>
+                                            <span class="image"><img src="~/Images/img.jpg" alt="Profile Image" /></span>
+                                            <span>
+                                                <span>John Smith</span>
+                                                <span class="time">3 mins ago</span>
+                                            </span>
+                                            <span class="message">
+                                                Film festivals used to be do-or-die moments for movie makers. They were where...
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <div class="text-center">
+                                            <a>
+                                                <strong>See All Alerts</strong>
+                                                <i class="fa fa-angle-right"></i>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!-- /top navigation -->
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="">
+                    @RenderBody()
+                </div>
+            </div>
+            <!-- /page content -->
+            <!-- footer content -->
+            <footer>
+                @*<div class="pull-right">
+                        <a target="_blank" href="http://www.acg-world.com/films-and-foils"><b style="color:red">ACG</b><b style="color:gray"> Films & Foils  </b></a>
+                    </div>*@
+                <div class="pull-right">
+                    Developed by
+                    <a @*target="_blank" href="http://www.paramcs.com"*@>
+                        <b style="color:red">PARAM</b>
+                        <i style="color:red"> Creative Solutions</i>
+                    </a>
+                    <span class="action-buttons" style="font-size:18px;">
+                        <a href="http://www.paramcs.com" target="_blank">
+                            <i class="ace-icon fas fa-parking text-danger faa-pulse animated-hover"></i>
+                        </a>
+                        <a href="https://in.linkedin.com/company/param-creative-solutions" target="_blank">
+                            <i class="ace-icon fa fa-linkedin-square light-blue faa-pulse animated-hover"></i>
+                        </a>
+                        <a href="https://www.facebook.com/pages/category/Internet-Company/PARAM-Creative-Solutions-145229605487758/" target="_blank">
+                            <i class="ace-icon fa fa-facebook-square text-primary faa-pulse animated-hover"></i>
+                        </a>
+                        @*<a href="#">
+                                <i class="ace-icon fa fa-rss-square orange"></i>
+                            </a>*@
+                    </span>
+                </div>
+                @*<div class="clearfix"></div>*@
+            </footer>
+            <!-- /footer content -->
+        </div>
+    </div>
+    <script src="~/Scripts/jquery.blockUI.js"></script>
+    <script src="~/Scripts/AppScripts/GlobalAjaxHandler.js"></script>
+    <script src="~/Libs/Gentelella/js/switchery.min.js"></script>
+    <script src="~/Scripts/jquery.Jcrop.min.js"></script>
+    <!-- jQuery -->
+    @*<script src="~/Scripts/jquery-2.2.4.min.js"></script>*@
+    <!-- jQuery -->
+    @*@Scripts.Render("~/bundles/jquery")*@
+    <!-- Bootstrap -->
+    @Scripts.Render("~/bundles/bootstrapJS")
+    <!-- FastClick -->
+    @Scripts.Render("~/bundles/fastclickJS")
+    <!-- NProgress -->
+    @Scripts.Render("~/bundles/nprogressJS")
+
+    <!-- FullCalendar -->
+    @Scripts.Render("~/bundles/fullcalendarJS")
+    <!-- jQuery Smart Wizard -->
+    @Scripts.Render("~/bundles/jquerySmartWizardJS")
+    <!-- mCustomScrollbar -->
+    @Scripts.Render("~/bundles/mCustomScrollbarJS")
+
+    <!-- Pnotify -->
+    @Scripts.Render("~/bundles/jqueryPNotify")
+
+    <!-- Chart JS -->
+    @Scripts.Render("~/bundles/ChartJS")
+
+    <!-- iCheck -->
+    <script src="~/Libs/Gentelella/js/icheck.min.js"></script>
+
+    <!-- Select 2 -->
+    <script src="~/Scripts/select2.min.js"></script>
+
+    <!-- jQuery Tags Input -->
+    <script src="~/Scripts/jquery.tagsinput/jquery.tagsinput.js"></script>
+
+    <!-- Datatables -->
+    @Scripts.Render("~/bundles/DataTableJS")
+
+        @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/validateDate")
+    @*<script src="~/Scripts/jquery.validate.date.js"></script>*@
+    @Scripts.Render("~/bundles/mvcfoolproof")
+    <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
+    <!--Reference the autogenerated SignalR hub script. -->
+    <script src="~/signalr/hubs"></script>
+
+    <!-- Custom Theme Scripts -->
+    @Scripts.Render("~/bundles/customThemeJS")
+    @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        function toggleFullScreen() {
+            if (!document.fullscreenElement &&    // alternative standard method
+             !document.mozFullScreenElement && !document.webkitFullscreenElement) {  // current working methods
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else if (document.documentElement.mozRequestFullScreen) {
+                    document.documentElement.mozRequestFullScreen();
+                } else if (document.documentElement.webkitRequestFullscreen) {
+                    document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+                }
+            } else {
+                if (document.cancelFullScreen) {
+                    document.cancelFullScreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.webkitCancelFullScreen) {
+                    document.webkitCancelFullScreen();
+                }
+            }
+        }
+    </script>
+    <script>
+
+        $(document).ready(function () {
+            //$(this).bind("contextmenu", function (e) {
+
+            //    e.preventDefault();
+
+            //});
+            //PNotify.removeAll();
+            $('.ui-pnotify').remove();
+            // tooltip
+            $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+            //$('.right_col').delegate('.SearchableDropdown', function myfunction() {
+            //    $(".SearchableDropdown").select2();
+            //})
+            $(".SearchableDropdown").select2();
+            //$('.VVCtagsInput').tagsInput({ width: 'auto' });
+
+            function init() {
+            }
+            //************added on by vikrant implment the signalr in application
+            $(function () {
+                // Reference the auto-generated proxy for the hub.
+                var operationsHub = $.connection.myapplicationhub;
+
+                operationsHub.client.online = function (count) {
+                    $(".onlineUsersCount").html(count);
+
+                };
+                operationsHub.client.RedirectToLoggoff = function () {
+                    window.location.href = "/Error/LoggedOff";
+                };
+            });
+            // Start the connection
+            $.connection.hub.logging = true;
+            $.connection.hub.start().done(init);
+
+
+            $(document).on('click', '.panel-heading span.clickable', function (e) {
+                var error = 0;
+                var $this = $(this);
+                var validator = $('#frmName').validate();
+                try {
+                    var panInputs = '#' + $(this).parents("div").eq(1).attr("id") + ' :input';
+                    $(panInputs).each(function () {
+                        if (!($('#frmName').validate().element(this))) {
+                            error = Number(error) + Number(1);
+                        }
+                    });
+                } catch (err) { }
+               
+                //if ((!$this.hasClass('panel-collapsed') && (error == 0))) {
+                //    $this.parents('.panel').find('.panel-body').slideUp();
+                //    $this.addClass('panel-collapsed');
+                //    $this.find('i').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+                //} else {
+                //    $this.parents('.panel').find('.panel-body').slideDown();
+                //    $this.removeClass('panel-collapsed');
+                //    $this.find('i').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+                //}
+            });
+        });
+    </script>
+</body>
+
+</html>

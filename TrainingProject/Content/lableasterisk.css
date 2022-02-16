@@ -1,0 +1,7 @@
+﻿.required::after 
+{
+    content: " *";
+    font-weight: bold;
+    font-size:15px;
+    color: red; 
+}

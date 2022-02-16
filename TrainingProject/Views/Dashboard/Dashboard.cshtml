@@ -1,0 +1,301 @@
+﻿@model  TrainingProject.ViewModels.Dashboard.DashboardViewModel
+@{
+    ViewBag.Title = "Index";
+}
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel ">
+            <div class="x_title">
+                <h2>Dashboard@*<small>(Overview)</small>*@</h2>
+               
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div style="width: 100%; display: inline-block;">
+                    <div class="row">
+                        @if (User.IsWithRight(SystemEnums.Rights.ManagePlantLevelMasterData))
+                        {
+                            <div class="col-md-2 col-sm-2 col-xs-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" style="height:100px">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-users green fa-4x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <div class="huge badge bg-green onlineUsersCount" style="font-size:small"></div>
+                                                <h4 style="color:#5a738e">Online <br> Users</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="/Admin/OnlineUsers">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">View Details</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right fa-2x"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        }     
+                        @if (User.IsWithRight(SystemEnums.Rights.CreateInspectionCall))
+                        {
+                            <div class="col-md-2 col-sm-2 col-xs-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" style="height:100px">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-list faa-pulse animated green fa-4x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                @*<div class="huge badge bg-red" style="font-size:small">124</div>*@
+                                                <h4 style="color:#5a738e"> My<br> Training Project</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="/InspectionCall/Index">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">View Details</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right fa-2x"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        }
+
+
+
+
+                      @if (User.IsWithRight(SystemEnums.Rights.ManagePlantLevelMasterData) || User.IsWithRight(SystemEnums.Rights.UpdateInspectionCallByKSB)|| User.IsWithRight(SystemEnums.Rights.OnlyView))
+                      {
+                            <div class="col-md-2 col-sm-2 col-xs-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" style="height:100px">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-edit faa-pulse animated green fa-4x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <div class="huge badge bg-red" style="font-size:small">@Model.NewCallCount</div>
+                                                <h4 style="color:#5a738e"> New<br> Training Project</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href='/InspectionCall/IndexWithStatus?statusID=@HelperMethods.EncryptURLId("New")'>
+
+                                        <div class="panel-footer">
+                                            <span class="pull-left">View Details</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right fa-2x"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" style="height:100px">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-list-alt green fa-4x animated"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <div class="huge badge bg-blue" style="font-size:small">@Model.ConfirmedCallCount</div>
+                                                <h4 style="color:#5a738e">Confirmed <br> Training Project</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                        <a href='#'>
+
+                                            <div class="panel-footer">
+                                                <span class="pull-left">View Details</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right fa-2x"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" style="height:100px">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <i class="fas fa-thumbs-up faa-wrench faa-slow animated-hover purple fa-4x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <div class="huge badge bg-purple" style="font-size:small">@Model.CompletedCallCount</div>
+                                                <h4 style="color:#5a738e">Completed <br> Training Project</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                        <a href='#'>
+
+                                            <div class="panel-footer">
+                                                <span class="pull-left">View Details</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right fa-2x"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
+                                </div>
+                            </div>
+
+                            @*<div class="col-md-2 col-sm-2 col-xs-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" style="height:100px">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <i class="fas fa-thumbs-down faa-wrench faa-slow animated-hover red fa-4x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <div class="huge badge bg-purple" style="font-size:small"></div>
+                                                <h4 style="color:#5a738e">Pending <br> Training Project</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href='/TrainingProject/IndexWithStatus?status=Pending'>
+
+                                        <div class="panel-footer">
+                                            <span class="pull-left">View Details</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right fa-2x"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>*@
+
+                            <div class="col-md-2 col-sm-2 col-xs-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" style="height:100px">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <i class="fas fa-bookmark faa-float animated blue fa-4x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <div class="huge badge bg-blue" style="font-size:small">@Model.WaivedCallCount</div>
+                                                <h4 style="color:#5a738e">Waived <br> Training Project</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href='#'>
+
+                                      
+                                            <div class="panel-footer">
+                                                <span class="pull-left">View Details</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right fa-2x"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
+</div>
+                            </div>
+
+                            <div class="col-md-2 col-sm-2 col-xs-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" style="height:100px">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-close  faa-float animated-hover red fa-4x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <div class="huge badge bg-red" style="font-size:small">@Model.RejectedCallCount</div>
+                                                <h4 style="color:#5a738e">Cancelled <br> Training Project</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href='#'>
+
+                                        <div class="panel-footer">
+                                            <span class="pull-left">View Details</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right fa-2x"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                      }
+                         
+                       
+                        @if (User.IsWithRight(SystemEnums.Rights.ManageSystemMasterData))
+                        {
+                            <div class="col-md-2 col-sm-2 col-xs-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" style="height:100px">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-wrench blue faa-wrench animated fa-4x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                @*<div class="huge badge bg-danger">@ViewBag.SalesOrders</div>*@
+                                                <h4 style="color:#5a738e">Manage <br> Dashboard</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="#">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">View Details</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right fa-2x"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="row">
+                        @*@if (User.IsWithRight(SystemEnums.Rights.ManagePlantLevelMasterData))
+                        {
+                            <div class="col-md-2 col-sm-2 col-xs-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" style="height:100px">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-bar-chart purple faa-vertical animated faa-slow fa-4x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <div class="huge badge bg-danger" style="font-size:small"></div>
+                                                <h4 style="color:#5a738e">Reports</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="/Dashboard/VendorAllDocStatus">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">View Details</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right fa-2x"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        }*@
+                       
+                    </div>
+
+                </div>
+                     
+            </div>
+          
+        </div>
+        </div>
+    <br>
+</div>
+<script type="text/javascript">
+
+    $(".inspIndex").on('click', function (event) {
+        
+        var _status = $(this).attr("status");
+        $.ajax(
+             {
+                 url: '/TrainingProject/IndexWithStatus',
+                 type: "GET",
+                 contentType: "application/json; charset=utf-8",
+                 data: { status: _status },
+                                 cache: false,
+                 success: function () {
+                  
+                 }
+             });
+    });
+</script>
+

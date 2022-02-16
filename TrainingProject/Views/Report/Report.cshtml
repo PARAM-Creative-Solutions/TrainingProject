@@ -1,0 +1,51 @@
+﻿@using Microsoft.Reporting.WebForms;
+@using MvcReportViewer;
+@using System.Web.UI.WebControls
+@using System.Drawing
+@model MvcReportViewerIframe
+@{
+    Layout = null;
+    ViewBag.Title = "Report";
+
+    var settings = new ControlSettings
+    {
+        //ShowParameterPrompts = true,
+        ShowFindControls = true,
+        BackColor = Color.BurlyWood,
+        //KeepSessionAlive = true,
+        Width = new Unit("100%"),
+        Height = new Unit("600px"),
+        AsyncRendering = false,
+        EnableHyperlinks = true,
+        //SizeToReportContent = true,
+        //ShowPromptAreaButton = true,
+        //ZoomPercent = 100,
+        //ZoomMode = ZoomMode.PageWidth,
+        ZoomMode = ZoomMode.Percent,
+        ShowZoomControl = true,
+        //ShowToolBar = true
+    };
+
+    Model.Method(FormMethod.Post);
+    Model.ControlSettings(settings);
+    //Model.EventsHandlerType(typeof(SubreportEventHandlers));
+    Model.Attributes(new
+    {
+        scrolling = "yes",
+        Height = "98%",
+        Width = "100%",
+        //style = "border: none",
+        //overflow = "visible",
+        //position = "relative",
+
+    });
+
+
+}
+
+@Model
+
+
+
+
+
