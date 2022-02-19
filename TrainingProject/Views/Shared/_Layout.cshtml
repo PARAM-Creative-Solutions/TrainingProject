@@ -78,8 +78,8 @@
                                 <li>
                                     <a href="/Dashboard/Dashboard"><i class="fa fa-dashboard"></i> Dashboard</a>
                                 </li>
-                              
-                               
+
+
 
                                 @if (User.IsWithRight(SystemEnums.Rights.ManageSystemMasterData))
                                 {
@@ -93,7 +93,7 @@
                                                     <li><a href="/Plants/PlantAdminIndex">Plant Admins</a></li>
                                                 </ul>
                                             </li>
-                                          
+
                                             <li><a href="/Users/AllUserIndex">Users</a></li>
                                             <li><a href="/Departments/Index">Departments</a></li>
                                             <li><a href="/Roles/Index">Roles</a></li>
@@ -106,40 +106,42 @@
                                     <li><a href="/Admin/OnlineUsers"><i class="fa fa-user"></i>Online Users</a></li>
                                 }
 
+                                <li><a href="/Test/Test"><i class="fa fa-user"></i>Test</a></li>
+
                                 @if (User.IsWithRight(SystemEnums.Rights.ManagePlantLevelMasterData))
                                 {
                                     <li>
                                         <a><i class="fa fa-database"></i> Manage Master Data <span class="fa fa-chevron-down"></span></a>
-           
-                                                                     <ul class="nav child_menu">
+
+                                        <ul class="nav child_menu">
                                             <li><a href="/Users/Index">Users</a></li>
                                             <li><a href="/VendorList/Index">Vendor List </a></li>
                                         </ul>
                                     </li>
-                                  
+
                                 }
                                 @if (User.IsWithRight(SystemEnums.Rights.CreateInspectionCall))
                                 {
                                     <li><a href="/TrainingProject/Create"><i class="fa fa-th"></i>Create Training Project</a></li>
-                                   
+
                                 }
                                 @*@if (User.IsWithRight(SystemEnums.Rights.ViewAllInspectionCallsOfPlant) || User.IsWithRight(SystemEnums.Rights.OnlyView))
+        {
+            <li><a href="/TrainingProject/Index"><i class="fa fa-list"></i>Training Project</a></li>
+
+        }*@
+                                @if (User.IsWithRight(SystemEnums.Rights.ViewReports))
                                 {
-                                    <li><a href="/TrainingProject/Index"><i class="fa fa-list"></i>Training Project</a></li>
-                                    
-                                }*@
-                                 @if (User.IsWithRight(SystemEnums.Rights.ViewReports))
-                                 {
-                                <li><a href="/Report/GenerateReport"><i class="fa fa-bar-chart"></i>Reports</a></li>
-                                 }
+                                    <li><a href="/Report/GenerateReport"><i class="fa fa-bar-chart"></i>Reports</a></li>
+                                }
                                 @*<li>
-                                        <a><i class="fa fa-question-circle"></i> Help<span class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu">
-                                            <li class="current-page"><a href="/Account/UserManual?type=@SystemEnums.UserManualTypes.TSSHeadManual" target="_blank">TSS Head Manual</a></li>
-                                            <li class="current-page"><a href="/Account/UserManual?type=@SystemEnums.UserManualTypes.TSSUserManual" target="_blank">TSS User Manual</a></li>
-                                        </ul>
-                                </li>*@
-                                
+                <a><i class="fa fa-question-circle"></i> Help<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li class="current-page"><a href="/Account/UserManual?type=@SystemEnums.UserManualTypes.TSSHeadManual" target="_blank">TSS Head Manual</a></li>
+                    <li class="current-page"><a href="/Account/UserManual?type=@SystemEnums.UserManualTypes.TSSUserManual" target="_blank">TSS User Manual</a></li>
+                </ul>
+        </li>*@
+
                             </ul>
                         </div>
                     </div>

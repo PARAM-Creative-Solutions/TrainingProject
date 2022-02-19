@@ -347,12 +347,19 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\DateTimeController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
+    <Compile Include="Controllers\DropdownController.cs" />
+    <Compile Include="Controllers\EditorsController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\PartialViewController.cs" />
     <Compile Include="Controllers\PlantsController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\RightsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\TextBoxController.cs" />
+    <Compile Include="Controllers\TreeController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -385,8 +392,15 @@
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\Dashboard\DashboardViewModel.cs" />
+    <Compile Include="ViewModels\DateAndTime\DateTimeViewModel.cs" />
+    <Compile Include="ViewModels\Dropdown\DropdownViewModel.cs" />
+    <Compile Include="ViewModels\Editors\EditorsViewModel.cs" />
     <Compile Include="ViewModels\NotificationMail\NotificationMail.cs" />
+    <Compile Include="ViewModels\PartialView\PartialViewViewModel.cs" />
     <Compile Include="ViewModels\Report\ReportsViewModel.cs" />
+    <Compile Include="ViewModels\Test\TestViewModel.cs" />
+    <Compile Include="ViewModels\TextBox\TextBoxViewModel.cs" />
+    <Compile Include="ViewModels\Tree\TreeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Client Scripts\mvcfoolproof.unobtrusive.js" />
@@ -1234,6 +1248,7 @@
     <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
     <Content Include="Views\Email\InspectionCallEmail.cshtml" />
     <Content Include="Views\Email\SupplierMailSignature.cshtml" />
+    <Content Include="Views\Test\Test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -1253,6 +1268,12 @@
     <Folder Include="App_Data\MasterSIExcel\" />
     <Folder Include="App_Data\User Manual\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\DateTime\" />
+    <Folder Include="Views\Dropdown\" />
+    <Folder Include="Views\Editors\" />
+    <Folder Include="Views\PartialView\" />
+    <Folder Include="Views\TextBox\" />
+    <Folder Include="Views\Tree\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
