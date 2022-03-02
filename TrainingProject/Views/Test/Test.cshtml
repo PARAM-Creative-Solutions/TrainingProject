@@ -12,27 +12,83 @@
             </span><b class="collapse-link"> Test</b>
         </div>
         <div class="panel-body" style="display: block;">
-            <form class="" action="/Test/Test" method="post">
-                <div class="form-group">
-                    <label class="control-label col-md-3">First Name</label>
-                    <div class="col-md-7 col-sm-7 col-xs-12">
-                        <input class="form-control" id="FirstName" name="FirstName" />
+           @using(Html.BeginForm("Test","Test",FormMethod.Post,new {id="frmTest"}))
+           {
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(s => s.Id)
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.FirstName, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                            @Html.TextBoxFor(r => r.FirstName, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.LastName, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                            @Html.TextBoxFor(r => r.LastName, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3">Last Name</label>
-                    <div class="col-md-7 col-sm-7 col-xs-12">
-                        <input class="form-control" id="LastName" name="LastName" />
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.Age, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                            @Html.TextBoxFor(r => r.Age, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.MobileNo, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                            @Html.TextBoxFor(r => r.MobileNo, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.EmailId, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                            @Html.TextBoxFor(r => r.EmailId, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.EmailId, "", new { @class = "text-danger" })
+                        </div>
                     </div>
                 </div>
-                <button type="submit">Save</button>
-            </form>
+
+                <div class="form-group">
+                    <button type="button" id="btnSave">Save</button>
+                </div>
+
+
+
+            </div>
+           }
         </div>
     </div>
 </div>
 
 <script type="text/javascript">
-
+    $('#btnSave').click(function () {
+        var IsValid = $('#frmTest').valid();
+        if (IsValid) {
+            var formData = $('#frmTest').serialize();
+            $.ajax(
+                {
+                    type: "Post",
+                    url: "/Test/Test",
+                    data: formData,
+                    dataType: "Json",
+                    success: function myfunction(Res) {
+                        alert(Res.Message);
+                    },
+                    error: function myfunction(Res) {
+                        alert(Res.Message);
+                    }
+            });
+        }
+    });
 
 </script>
 
