@@ -1,0 +1,115 @@
+﻿@model IEnumerable<TrainingProjectDataLayer.DataLayer.Entities.DAL.User>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@*<style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>*@
+
+<h2>Index</h2>
+
+@*<table>
+        <tr>
+            <th>@Html.DisplayNameFor(d => d.FirstName)</th>
+            <th>@Html.DisplayNameFor(d => d.LastName)</th>
+            <th>@Html.DisplayNameFor(d => d.EmailId)</th>
+        </tr>
+        @foreach (TrainingProjectDataLayer.DataLayer.Entities.DAL.User item in Model)
+        {
+            <tr>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                <td>@item.EmailId</td>
+            </tr>
+        }
+    </table>*@
+
+
+<table id="DtUsers" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline" cellspacing="0" role="grid" aria-describedby="datatable-responsive_info" style="width: 100%;">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.UserName)</th>
+            <th>@Html.DisplayNameFor(model => model.FirstName)</th>
+            <th>@Html.DisplayNameFor(model => model.MiddleName)</th>
+            <th>@Html.DisplayNameFor(model => model.LastName)</th>
+            <th>@Html.DisplayNameFor(model => model.Department.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.EmailId)</th>
+            <th>@Html.DisplayNameFor(model => model.Init)</th>
+            <th>@Html.DisplayNameFor(model => model.CreatedOn)</th>
+            <th>@Html.DisplayNameFor(model => model.LastModifiedOn)</th>
+            <th>@Html.DisplayNameFor(model => model.UserRoles)</th>
+            <th>@Html.DisplayNameFor(model => model.Password)</th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        @Html.HiddenFor(modelItem => item.UserId)
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.UserName)</td>
+            <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+            <td>@Html.DisplayFor(modelItem => item.MiddleName)</td>
+            <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+            <td>@Html.DisplayFor(modelItem => item.Department.Name)</td>
+            <td>@Html.DisplayFor(modelItem => item.EmailId)</td>
+            <td>@Html.DisplayFor(modelItem => item.Init)</td>
+            <td>@Html.DisplayFor(modelItem => item.CreatedOn)</td>
+            <td>@Html.DisplayFor(modelItem => item.LastModifiedOn)</td>
+            <td> @string.Join(",", item.UserRoles.Select(r => r.Role.RoleName).ToList())</td>
+            <td>@Html.DisplayFor(modelItem => item.Password)</td>
+        </tr>
+    }
+</table>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#DtUsers').DataTable({
+            dom: 'Bfrtip',
+            buttons: ['copy', 'csv', 'print', {
+                extend: 'colvis',
+                postfixButtons: ['colvisRestore'],
+                columnText: function (dt, idx, title) {
+                    return (idx + 1) + ': ' + title;
+                }
+            }],
+            stateSave: true,
+            rowReorder: {
+                selector: 'td:nth-child(2)'
+            },
+            responsive: true,
+            "order": [[0, "desc"]]
+        });
+    });
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+

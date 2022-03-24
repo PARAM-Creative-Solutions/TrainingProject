@@ -37,4 +37,6 @@ namespace TrainingProject.ViewModels.Test
         [EmailAddress]
         public string EmailId { get; set; }
     }
+
+
 }

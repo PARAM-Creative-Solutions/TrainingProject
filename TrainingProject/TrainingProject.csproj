@@ -343,12 +343,16 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Basic\ClassesDemo.cs" />
+    <Compile Include="Basic\Collections.cs" />
     <Compile Include="Basic\Constructor.cs" />
     <Compile Include="Basic\Inheritance.cs" />
     <Compile Include="Basic\MethodOverloading.cs" />
+    <Compile Include="Basic\StaticConcept.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CollectionListController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DateTimeController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
@@ -1254,6 +1258,7 @@
     <Content Include="Views\Email\SupplierMailSignature.cshtml" />
     <Content Include="Views\Test\Test.cshtml" />
     <Content Include="Views\HTTPMethods\Test.cshtml" />
+    <Content Include="Views\CollectionList\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

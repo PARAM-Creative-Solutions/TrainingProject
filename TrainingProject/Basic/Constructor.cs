@@ -27,18 +27,28 @@ namespace TrainingProject.Basic
     public class Employee
     {
         public int EmployeeId { get; set; }
-        public string EmployeeName { get; set; }
+        public string EmployeeName { get; set; } // Employee name
 
         public Employee()
         {
 
         }
+        #region Constructor for employee with emp name and id
 
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="EmployeeId"></param>
+        /// <param name="EmployeeName"></param>
         public Employee(int EmployeeId, string EmployeeName)
         {
             this.EmployeeId = EmployeeId;
             this.EmployeeName = EmployeeName;
         }
+
+        #endregion
 
         public Employee(int EmployeeId)
         {

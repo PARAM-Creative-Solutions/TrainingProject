@@ -48,7 +48,7 @@ namespace TrainingProject.Controllers
                 user.LastName = TestVM.LastName;
 
                 uow.SaveChanges();
-                return Json(new { Result = true, Message = "User Updated" });
+                return Json(new { Result = true, Message = "Users Updated" });
             }
             else
             {

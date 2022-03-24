@@ -4,13 +4,11 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
 }
 @*@Scripts.Render("~/bundles/jqueryValidation")*@
 
 
 <!-- #region HTML CODE -->
-
 <p><br /><br /><br /></p>
 <div class="">
     <div class="panel panel-info" id="pSo">
@@ -194,11 +192,6 @@
                                 <!-- #region Script Create Modal -->
                                 <script type="text/javascript">
                                     $(".btnCreate").click(function () {
-                                        var options =
-                                        {
-                                            "backdrop": "static",
-                                            keyboard: true
-                                        };
                                         $.ajax(
                                                {
                                                    url: '/Users/Create',
@@ -218,7 +211,6 @@
                                                            $('#UserDetailsModalContent').html("");
                                                            $('#UserEditModalContent').html("");
                                                            $('#UserCreateModalContent').html(data);
-                                                           $('#UserCreateModal').modal(options);
                                                            $('#UserCreateModal').modal('show');
                                                        }
                                                    }
