@@ -789,6 +789,7 @@
     <Content Include="Images\Login\Inspection1.jpg" />
     <Content Include="Images\Login\KSB.jpg" />
     <Content Include="Images\Login\ParamLogo.jpg" />
+    <Content Include="Images\ParamLogo.jpg" />
     <Content Include="Libs\Gentelella\css\custom.css" />
     <Content Include="Libs\Gentelella\css\custom.min.css" />
     <Content Include="Libs\Gentelella\css\green%402x.png" />
