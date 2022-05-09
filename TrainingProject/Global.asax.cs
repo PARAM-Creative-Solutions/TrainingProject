@@ -20,7 +20,7 @@ namespace TrainingProject
     /// </summary>
     public class MvcApplication : System.Web.HttpApplication
     {
-
+        //New change 2
         /// <summary>
         ///Not every request is called
         ///Execute once in the life cycle of a Web application
