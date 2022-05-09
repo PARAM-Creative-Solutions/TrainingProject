@@ -786,6 +786,7 @@
     <Content Include="Images\Free-file-icons\48px\_blank.png" />
     <Content Include="Images\Free-file-icons\48px\_page.png" />
     <Content Include="Images\img.jpg" />
+    <Content Include="Images\Inspection1.jpg" />
     <Content Include="Images\Login\Inspection1.jpg" />
     <Content Include="Images\Login\KSB.jpg" />
     <Content Include="Images\Login\ParamLogo.jpg" />
