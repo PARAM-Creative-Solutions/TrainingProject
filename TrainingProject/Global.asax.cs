@@ -21,6 +21,7 @@ namespace TrainingProject
     public class MvcApplication : System.Web.HttpApplication
     {
         //New change 2
+        ///New change 1
         /// <summary>
         ///Not every request is called
         ///Execute once in the life cycle of a Web application
