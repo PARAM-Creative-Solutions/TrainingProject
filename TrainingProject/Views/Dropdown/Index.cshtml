@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+@model TrainingProject.ViewModels.Dropdown.DropdownViewModel
+<!-- #region HTML CODE -->
+<p><br /><br /><br /></p>
+<div class="">
+    <div class="panel panel-info" id="pSo">
+        <div class="panel-heading">
+            <span id="SpanExpander" class="pull-left clickable">
+                <i id="ILabel" class="glyphicon glyphicon-chevron-up" style="font-size:large;"></i>
+            </span><b class="collapse-link"> Dropdown</b>
+        </div>
+        <div class="panel-body" style="display: block;">
+            <!-- #region CREATE NEW USER BUTTON -->
+
+            <div class="col-sm-3 form-group has-feedback" style="width:244px;">
+
+            </div>
+
+            <!-- #endregion -->
+            <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.User, "User", htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                            @Html.DropDownListFor(model => model.User, (IEnumerable<SelectListItem>)ViewBag.UsersConstructor1, Constants.Option, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.User, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.User, "User", htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                            @Html.DropDownListFor(model => model.User, (IEnumerable<SelectListItem>)ViewBag.UsersConstructor2, Constants.Option, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.User, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.User, "User", htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                            @Html.DropDownListFor(model => model.User, (IEnumerable<SelectListItem>)ViewBag.UsersConstructor3, Constants.Option, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.User, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+           
+        </div>
+    </div>
+</div>
+
